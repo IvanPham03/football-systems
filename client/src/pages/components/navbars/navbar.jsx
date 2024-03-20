@@ -1,15 +1,26 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../assets/logo/1.png";
-import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
-import {setView} from '../../../redux-toolkit/slices/uiSlice.js'
+import {
+  faBell,
+  faChevronDown,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { setView } from "../../../redux-toolkit/slices/uiSlice.js";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 const Navbar = () => {
-  const dispatch = useDispatch()
-  const view = useSelector(state=>state.ui.view)
-  const handleClick = (type)=>{
+  const dispatch = useDispatch();
+  const handleClick = (type) => {
+    console.log('====================================');
+    console.log(type);
+    console.log('====================================');
     dispatch(setView(type));
-  }
+  };
 
   return (
     <nav className="bg-gray-800">
@@ -69,31 +80,97 @@ const Navbar = () => {
             <div className="hidden sm:ml-6 sm:block">
               <ul className="flex space-x-4 ">
                 <li
-                  className={`text-gray-300 ${view === "homeClient" && "bg-gray-900" } hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
-                  onClick={()=>handleClick("homeClient")}
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
+                  onClick={() => handleClick("homeClient")}
                 >
                   Trang chủ
                 </li>
-                <li
-                onClick={()=>handleClick("tournament")}
-                  className={`text-gray-300 ${view === "tournament" && "bg-gray-900" } hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
-                >
-                  Giải đấu
+                <li>
+                  <Menu
+                    as="div"
+                    className={`relative text-gray-300
+                     hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
+                  >
+                    <div>
+                      <Menu.Button>
+                        Giải đấu{" "}
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          style={{ width: "20px", paddingLeft: "4px" }}
+                          transform="grow-6"
+                        />
+                      </Menu.Button>
+                    </div>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute right-0 z-10 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                          <Menu.Item   onClick={()=>{
+                                  handleClick("CreateTournament")
+                                }}>
+                            {({ active }) => (
+                              <button
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block w-full py-2 px-4 text-sm text-left"
+                                )}
+                              
+                              >
+                                Tạo giải đấu
+                              </button>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item  onClick={()=>{
+                                  handleClick("FindTournament")
+                                }}>
+                            {({ active }) => (
+                              <button
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block w-full py-2 px-4 text-sm text-left"
+                                )}
+                               
+                              >
+                                Tìm giải
+                              </button>
+                            )}
+                          </Menu.Item>
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
                 </li>
                 <li
-                  onClick={()=>handleClick("team")}
-                  className={`text-gray-300 ${view === "team" && "bg-gray-900" } hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
+                  onClick={() => handleClick("team")}
+                  className={`text-gray-300
+                   hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
                 >
                   Đội thi đấu
                 </li>
                 <li
-                onClick={()=>handleClick("league")}
-                  className={`text-gray-300 ${view === "league" && "bg-gray-900" } hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
+                  onClick={() => handleClick("league")}
+                  className={`text-gray-300
+                   hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
                 >
                   BXH
                 </li>
                 <button className="w-10 h-10">
-                  <FontAwesomeIcon icon={faBell} style={{"color": "white","width": "20px", "height": "20px"}} />
+                  <FontAwesomeIcon
+                    icon={faBell}
+                    style={{ color: "white", width: "20px", height: "20px" }}
+                  />
                 </button>
               </ul>
             </div>
@@ -102,7 +179,10 @@ const Navbar = () => {
             <div className="relative ml-3">
               <div>
                 <button>
-                <FontAwesomeIcon icon={faUser} style={{"color": "white","width": "20px", "height": "20px"}}/>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    style={{ color: "white", width: "20px", height: "20px" }}
+                  />
                 </button>
               </div>
 
@@ -113,30 +193,12 @@ const Navbar = () => {
                 aria-labelledby="user-menu-button"
                 tabIndex="-1"
               >
-                <a
-                  className="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="user-menu-item-0"
-                >
-                  Your Profile
-                </a>
-                <a
-                  className="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="user-menu-item-1"
-                >
-                  Settings
-                </a>
-                <a
-                  className="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="user-menu-item-2"
-                >
-                  Sign out
-                </a>
+                <button className="block px-4 py-2 text-sm text-gray-700">
+                  Giải đấu
+                </button>
+                <button className="block px-4 py-2 text-sm text-gray-700">
+                  Tìm giải
+                </button>
               </div>
             </div>
           </div>
