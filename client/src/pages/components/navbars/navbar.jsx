@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "../../../assets/logo/1.png";
+import logo from "../../../assets/logo/logo.png";
 import {
   faBell,
   faChevronDown,
@@ -10,15 +10,17 @@ import { useDispatch } from "react-redux";
 import { setView } from "../../../redux-toolkit/slices/uiSlice.js";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 const Navbar = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClick = (type) => {
-    console.log('====================================');
+    console.log("====================================");
     console.log(type);
-    console.log('====================================');
+    console.log("====================================");
     dispatch(setView(type));
   };
 
@@ -68,7 +70,12 @@ const Navbar = () => {
             </button>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
-            <div className="flex flex-shrink-0 items-center gap-2">
+            <div
+              className="flex flex-shrink-0 items-center gap-2"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <img
                 src={logo}
                 alt="logo"
@@ -81,7 +88,7 @@ const Navbar = () => {
               <ul className="flex space-x-4 ">
                 <li
                   className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
-                  onClick={() => handleClick("homeClient")}
+                  onClick={() => navigate("/")}
                 >
                   Trang chủ
                 </li>
@@ -113,9 +120,12 @@ const Navbar = () => {
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="py-1">
-                          <Menu.Item   onClick={()=>{
-                                  handleClick("CreateTournament")
-                                }}>
+                          <Menu.Item
+                            onClick={() => {
+                              handleClick("CreateTournament");
+                              navigate("/tournament");
+                            }}
+                          >
                             {({ active }) => (
                               <button
                                 className={classNames(
@@ -124,15 +134,17 @@ const Navbar = () => {
                                     : "text-gray-700",
                                   "block w-full py-2 px-4 text-sm text-left"
                                 )}
-                              
                               >
                                 Tạo giải đấu
                               </button>
                             )}
                           </Menu.Item>
-                          <Menu.Item  onClick={()=>{
-                                  handleClick("FindTournament")
-                                }}>
+                          <Menu.Item
+                            onClick={() => {
+                              handleClick("FindTournament");
+                              navigate("/tournament");
+                            }}
+                          >
                             {({ active }) => (
                               <button
                                 className={classNames(
@@ -141,7 +153,6 @@ const Navbar = () => {
                                     : "text-gray-700",
                                   "block w-full py-2 px-4 text-sm text-left"
                                 )}
-                               
                               >
                                 Tìm giải
                               </button>
@@ -152,13 +163,94 @@ const Navbar = () => {
                     </Transition>
                   </Menu>
                 </li>
-                <li
-                  onClick={() => handleClick("team")}
-                  className={`text-gray-300
-                   hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
+                <Menu
+                  as="div"
+                  className={`relative text-gray-300
+                     hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer `}
                 >
-                  Đội thi đấu
-                </li>
+                  <div>
+                    <Menu.Button>
+                      Đội thi đấu{" "}
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        style={{ width: "20px", paddingLeft: "4px" }}
+                        transform="grow-6"
+                      />
+                    </Menu.Button>
+                  </div>
+
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="py-1">
+                        <Menu.Item
+                          onClick={() => {
+                            handleClick("CreateTeam");
+                            navigate("/team");
+                          }}
+                        >
+                          {({ active }) => (
+                            <button
+                              className={classNames(
+                                active
+                                  ? "bg-gray-100 text-gray-900"
+                                  : "text-gray-700",
+                                "block w-full py-2 px-4 text-sm text-left"
+                              )}
+                            >
+                              Tạo đội
+                            </button>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item
+                          onClick={() => {
+                            handleClick("FindTeam");
+                            navigate("/team");
+                          }}
+                        >
+                          {({ active }) => (
+                            <button
+                              className={classNames(
+                                active
+                                  ? "bg-gray-100 text-gray-900"
+                                  : "text-gray-700",
+                                "block w-full py-2 px-4 text-sm text-left"
+                              )}
+                            >
+                              Tìm đội
+                            </button>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item
+                          onClick={() => {
+                            handleClick("CreateTeamFormation");
+                            navigate("/team");
+                          }}
+                        >
+                          {({ active }) => (
+                            <button
+                              className={classNames(
+                                active
+                                  ? "bg-gray-100 text-gray-900"
+                                  : "text-gray-700",
+                                "block w-full py-2 px-4 text-sm text-left"
+                              )}
+                            >
+                              Tạo đội hình
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
                 <li
                   onClick={() => handleClick("league")}
                   className={`text-gray-300
@@ -178,7 +270,11 @@ const Navbar = () => {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="relative ml-3">
               <div>
-                <button>
+                <button
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
                   <FontAwesomeIcon
                     icon={faUser}
                     style={{ color: "white", width: "20px", height: "20px" }}
