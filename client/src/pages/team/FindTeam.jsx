@@ -10,22 +10,9 @@ import {
   Stack,
 } from "@mui/material";
 import Card from "../components/cards/card";
-const FindTournament = () => {
+const FindTeam = () => {
   const [focus, setFocus] = useState(false);
   const inputSearch = useRef();
-  const [type, setType] = useState();
-  const [status, setStatus] = useState();
-  const [sort, setSort] = useState();
-
-  const handleChangeType = (arg) => {
-    setType(arg.target.value);
-  };
-  const handleChangeStatus = (arg) => {
-    setStatus(arg.target.value);
-  };
-  const handleChangeSort = (arg) => {
-    setSort(arg.target.value);
-  };
 
   return (
     <div className="min-h-[1000px] my-10">
@@ -38,7 +25,7 @@ const FindTournament = () => {
         >
           <input
             type="text"
-            placeholder="Tên giải đấu"
+            placeholder="Tên đội, địa chỉ, tên người quản lý"
             className="border-none outline-none grow"
             onFocus={() => {
               setFocus(true);
@@ -52,46 +39,30 @@ const FindTournament = () => {
             className="h-3/5 hover:text-gray-400 hover:cursor-pointer"
           />
         </div>
-        <FormControl sx={{ minWidth: 200 }} size="small">
-          <InputLabel id="demo-select-small-label">Hình thức</InputLabel>
+        <FormControl sx={{ minWidth: 200}} size="small">
+          <InputLabel id="demo-select-small-label">Trình độ</InputLabel>
           <Select
             labelId="demo-select-small-label"
             id="demo-select-small"
-            value={type}
-            label="Hình thi đấu"
-            onChange={handleChangeType}
+            label="Chế độ"
           >
-            <MenuItem value={"private"}>Loại trực tiếp</MenuItem>
-            <MenuItem value={"public"}>Đấu vòng tròn</MenuItem>
+            <MenuItem value={"private"}>Chuyên nghiệp</MenuItem>
+            <MenuItem value={"public"}>Bán chuyên nghiệp</MenuItem>
+            <MenuItem value={"public"}>Cao cấp</MenuItem>
+            <MenuItem value={"public"}>Trung cấp</MenuItem>
+            <MenuItem value={"public"}>Vui</MenuItem>
+            <MenuItem value={"public"}>Khác</MenuItem>
           </Select>
         </FormControl>
-        <FormControl sx={{ minWidth: 200 }} size="small">
-          <InputLabel id="demo-select-small-label">Trạng thái</InputLabel>
+        <FormControl sx={{ minWidth: 200,}} size="small">
+          <InputLabel id="demo-select-small-label">Giới tính</InputLabel>
           <Select
             labelId="demo-select-small-label"
             id="demo-select-small"
-            value={status}
-            label="Trạng thái"
-            onChange={handleChangeStatus}
+            label="Chế độ"
           >
-            <MenuItem value={"private"}>Đang đăng ký</MenuItem>
-            <MenuItem value={"public"}>Hoạt động</MenuItem>
-            <MenuItem value={"public"}>Kết thúc</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl sx={{ minWidth: 200 }} size="small">
-          <InputLabel id="demo-select-small-label">Sắp xếp</InputLabel>
-          <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            value={sort}
-            label="Sắp xếp"
-            onChange={handleChangeSort}
-          >
-            <MenuItem value={"private"}>Theo tên giải đấu</MenuItem>
-            <MenuItem value={"public"}>Mới cập nhật</MenuItem>
-            <MenuItem value={"public"}>Nhiều người xem</MenuItem>
-            <MenuItem value={"public"}>Nhiều người quan tâm</MenuItem>
+            <MenuItem value={"male"}>Nam</MenuItem>
+            <MenuItem value={"female"}>Nữ</MenuItem>
           </Select>
         </FormControl>
       </div>
@@ -123,4 +94,4 @@ const FindTournament = () => {
   );
 };
 
-export default FindTournament;
+export default FindTeam;

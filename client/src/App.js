@@ -1,11 +1,15 @@
-import './App.css';
+import "./App.css";
 
-import { Layout } from './pages';
-function App() {
+import React from "react";
+import Route from "./pages/components/routes/Routes.jsx";
+import { Outlet } from "react-router-dom";
+const App = () => {
   return (
-    <Layout />
-   
+    <div className="w-screen">
+      <Outlet />
+      <Route />
+    </div>
   );
-}
+};
 
 export default App;
