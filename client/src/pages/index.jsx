@@ -1,6 +1,6 @@
 export {default as Navbar } from './components/navbars/navbar'
-export {default as Footer} from './components/footers/Footer'
-export {default as Layout} from './components/layouts/Main'
+export {default as Footer} from './components/footers/footer'
+export {default as Layout} from './components/layouts/main'
 export {default as Login} from './auth/Login'
 export {default as Home} from './home/index'
 export {default as Team} from './team/index'

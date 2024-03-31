@@ -1,5 +1,5 @@
 import Login from "../../auth/Login";
-import Main from "../layouts/Main";
+import Main from "../layouts/main";
 import Null from "../layouts/Null";
 import { Routes, Route } from "react-router-dom";
 import {Home, Team, Tournament} from '../../../pages'
