@@ -30,6 +30,7 @@ const team = new Schema(
     player: [{ type: Schema.Types.ObjectId, ref: "player" }],
     teamFormation: [{ type: Schema.Types.ObjectId, ref: "teamFormation" }],
     coach: {type: Schema.Types.ObjectId, ref: "coach"}
+
   },
   { timestamps: true }
 );
