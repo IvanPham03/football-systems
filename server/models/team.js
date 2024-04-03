@@ -25,10 +25,9 @@ const team = new Schema(
     },
     introduce: String,
     period: String,
-    player: [{ type: Schema.Types.ObjectId, ref: "player" }],
     teamFormation: [{ type: Schema.Types.ObjectId, ref: "teamFormation" }],
-    coach: {type: Schema.Types.ObjectId, ref: "coach"}
-
+    coach: {type: Schema.Types.ObjectId, ref: "coach"},
+    player: [{ type: String }] // lưu danh sách id cầu thủ 
   },
   { timestamps: true }
 );
