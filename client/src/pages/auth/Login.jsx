@@ -1,13 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import bg from "../../assets/soccer-balloon-camp-monochrome-scene-generative-ai.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import logo from "../../assets/logo/logo.png";
 import { useNavigate } from "react-router-dom";
+import AxiosInstance from "../.../../../config/AxiosInstance.js";
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux-toolkit/slices/sessionSlice.js';
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch  = useDispatch()
+  const [email, setemail] = useState();
+  const [password, setpassword] = useState();
+  const [error, seterror] = useState();
+
+  const handleClickSubmit = async () => {
+    // Basic validation (improve based on your specific requirements)
+    if (!email || !password) {
+      seterror("Email hoặc mật khẩu không hợp lệ!");
+    } else {
+      let res = await AxiosInstance.post("/auth/login", {
+        email: email,
+        password: password,
+      });
+      console.log('====================================');
+      console.log(res.data);
+      console.log('====================================');
+      if (res.status) {
+        dispatch(login({token: res.data?.accesstoken, name: res.data?.name}))
+        navigate("/");
+      } else {
+        seterror("Email hoặc mật khẩu không chính xác!");
+      }
+    }
+  };
+
   return (
     <div
-      className="h-screen w-screen"
+      className="h-screen w-screen flex justify-center"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundRepeat: "no-repeat",
@@ -15,9 +43,21 @@ const Login = () => {
         backdropFilter: "blur(50px)",
       }}
     >
-      <div className="bg-gray-800bg-transparent h-full flex flex-col items-center justify-center">
-        <form className="max-w-[500px] w-full mx-auto rounded-lg  p-8 px-8">
-          <h2 className="text-5xl dark:text-white font-bold text-center p-2">
+      <div className="bg-gray-800bg-transparent h-screen flex flex-col items-center justify-center max-w-[500px] xl:w-[500px]">
+        <div className="max-w-[500px] w-full mx-auto rounded-lg">
+          <div className="my-10 flex justify-center" role="tooltip">
+            <div className=" p-6rounded-full hover:opacity-50 transition-all hover:cursor-pointer">
+              <img
+                src={logo}
+                alt="logo"
+                className="w-28 object-cover  hover:opacity-50 transition-all hover:cursor-pointer"
+                onClick={() => {
+                  navigate("/");
+                }}
+              />
+            </div>
+          </div>
+          <h2 className="text-3xl dark:text-white font-bold text-center px-2">
             Đăng nhập
           </h2>
           <div className="flex flex-col text-gray-200 py-2">
@@ -25,6 +65,10 @@ const Login = () => {
             <input
               className="rounded-lg mt-2 p-2 bg-transparent focus:outline-none border-solid border border-gray-200"
               type="text"
+              onChange={(e) => {
+                setemail(e.target.value);
+                seterror("");
+              }}
             />
           </div>
           <div className="flex flex-col text-gray-200 py-2 ">
@@ -32,8 +76,13 @@ const Login = () => {
             <input
               className="p-2 rounded-lg mt-2 bg-transparent focus:outline-none border-solid border border-gray-200"
               type="password"
+              onChange={(e) => {
+                setpassword(e.target.value);
+                seterror("");
+              }}
             />
           </div>
+          <p className="text-red-500">{error}</p>
           <div className="flex justify-between text-gray-200 py-2">
             <p className="flex items-center">
               <input className="mr-2" type="checkbox" /> Lưu mật khẩu
@@ -42,21 +91,26 @@ const Login = () => {
               Quên mật khẩu
             </p>
           </div>
-          <button className="w-full my-5 py-2 bg-gray-500 shadow-lg shadow-gray-500/50 hover:shadow-gray-500/40 text-white font-semibold rounded-lg">
+          <button
+            className="w-full my-5 py-2 bg-gray-500 shadow-lg shadow-gray-500/50 hover:shadow-gray-500/40 text-white font-semibold rounded-lg"
+            onClick={() => {
+              handleClickSubmit();
+            }}
+          >
             Đăng nhập
           </button>
-        </form>
+        </div>
         <p className="text-gray-200">
           Bạn chưa có tài khoản?{" "}
-          <span className="text-red-500 hover:opacity-50 hover:cursor-pointer">
+          <span
+            className="text-red-500 hover:opacity-50 hover:cursor-pointer"
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
             Đăng ký tại đây
           </span>
         </p>
-        <div className="my-10" role="tooltip">
-          <FontAwesomeIcon icon={faArrowLeft} className="text-3xl text-white border-2 border-solid p-3 rounded-full hover:opacity-50 transition-all hover:cursor-pointer" onClick={()=>{
-            navigate('/')
-          }}/>
-        </div>
       </div>
     </div>
   );

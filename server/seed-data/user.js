@@ -11,34 +11,36 @@ export async function initialUser() {
       await Promise.all([
         new user({
           username: "admin",
+          email: "admin@gmail.com",
           role: "admin",
           password: passwordAdmin,
           team: [],
           tournament: [],
         }).save(),
         new user({
-          username: "Moderate",
-          role: "Moderate",
+          username: "moderate",
+          email: "moderate@gmail.com",
+          role: "moderate",
           password: passwordModerate,
           team: [],
           tournament: [],
         }).save(),
         new user({
-          username: "User",
-          role: "User",
+          username: "user",
+          email: "user@gmail.com",
+          role: "user",
           password: passwordUser,
           team: [],
           tournament: [],
         }).save(),
       ]);
+      console.log("====================================");
+      console.log("init seed data user");
+      console.log("====================================");
     }
-    console.log('====================================');
-    console.log('init seed data');
-    console.log('====================================');
   } catch (error) {
     console.error("init seed data user:::" + error);
   }
 }
 
-
-export default initialUser
+export default initialUser;
