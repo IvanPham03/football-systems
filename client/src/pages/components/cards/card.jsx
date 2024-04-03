@@ -10,13 +10,15 @@ import { setView } from "../../../redux-toolkit/slices/uiSlice.js";
 const Card = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const ui = useSelector(state=>state.ui.view)
+  console.log(ui);
   const handleClick = (type) => {
     // console.log("====================================");
     // console.log(type);
     // console.log("====================================");
     dispatch(setView(type)); 
 
-    navigate("/team#info")
+    navigate("/info")
   };
   return (
     // <div >
