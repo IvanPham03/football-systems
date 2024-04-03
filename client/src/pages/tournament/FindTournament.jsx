@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import AxiosInstance from "../../config/AxiosInstance";
 import {
   FormControl,
   InputLabel,
@@ -9,9 +10,11 @@ import {
   Select,
   Stack,
 } from "@mui/material";
-import Card from "../components/cards/card";
+import Card from "./Card";
 const FindTournament = () => {
   const [focus, setFocus] = useState(false);
+  const [tournaments, setTournaments] = useState(null);
+
   const inputSearch = useRef();
   const [type, setType] = useState();
   const [status, setStatus] = useState();
@@ -27,6 +30,21 @@ const FindTournament = () => {
     setSort(arg.target.value);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await AxiosInstance.get("/tournaments");
+        console.log("====================================");
+        console.log(response.data);
+        console.log("====================================");
+        setTournaments(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="min-h-[1000px] my-10">
       <div className="flex justify-between h-10 gap-3">
@@ -99,16 +117,10 @@ const FindTournament = () => {
         // list card
       }
       <div className="grid grid-cols-4 gap-4 my-10">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {tournaments &&
+          tournaments.map((tournament) => {
+            return <Card key={tournament._id} tournament={tournament} />;
+          })}
       </div>
 
       {

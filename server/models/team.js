@@ -4,7 +4,7 @@ import connect from "../config/db.config.js";
 const team = new Schema(
   {
     name: String,
-    player: [{ type: Schema.Types.ObjectId, ref: "player" }],
+    player: [{ type: String }] // lưu danh sách id cầu thủ 
   },
   { timestamps: true }
 );

@@ -2,12 +2,12 @@ import { faEye, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-const Card = () => {
+const Card = ({ tournament }) => {
   return (
-    <div>
-      <div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <div key={tournament._id}>
+      <div className="max-w-sm rounded overflow-hidden shadow-lg">
         <img
-          class="w-full"
+          className="w-full"
           src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"
           alt="img test"
         />
@@ -15,26 +15,22 @@ const Card = () => {
           <img
             src="https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_640.png"
             alt=""
-            srcset=""
             className="w-[90px] h-[90px] object-cover shadow-2xl rounded-md"
           />
         </div>
-        <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2">Yagami S Leaguet</div>
-          <p class="text-gray-700 text-base">
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl mb-2">Yagami S Leaguet</div>
+          <p className="text-gray-700 text-base">
             <span>Chia Bảng Đấu ║</span>
             <span>Bóng Đá Sân 7 ║</span>
-            <span>
-              Sân Bóng Thành Phát, Đường Hoàng Minh Giám, Trung Hoà, Cầu Giấy,
-              Hà Nội, Việt Nam
-            </span>
+            <span>{tournament.venue}</span>
           </p>
         </div>
-        <div class="px-6 pt-4 pb-2">
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+        <div className="px-6 pt-4 pb-2">
+          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
             <FontAwesomeIcon icon={faPeopleGroup} /> <span>32</span>
           </span>
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
             <FontAwesomeIcon icon={faEye} /> <span>32</span>
           </span>
           <div className="my-10">
@@ -43,7 +39,9 @@ const Card = () => {
                 className="bg-blue-500  w-full text-center text-[10px] font-medium leading-none text-primary-100 overflow-hidden rounded-md h-[15px]"
                 style={{ width: "60%" }}
               ></div>
-              <div className="text-[10px] flex justify-center -mt-[15px] overflow-hidden">60/100</div>
+              <div className="text-[10px] flex justify-center -mt-[15px] overflow-hidden">
+                60/100
+              </div>
             </div>
           </div>
         </div>

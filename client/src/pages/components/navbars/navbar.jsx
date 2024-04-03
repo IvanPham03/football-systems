@@ -79,7 +79,6 @@ const Navbar = () => {
               <img
                 src={logo}
                 alt="logo"
-                srcSet=""
                 className="h-8 w-8 object-cover"
               />
               <p className="text-white text-xl">Football Management System</p>

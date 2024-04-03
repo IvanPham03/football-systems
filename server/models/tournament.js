@@ -3,14 +3,17 @@ import connect from "../config/db.config.js";
 const tournament = new Schema(
   {
     name: String,
-    timeStart: Date,
-    timeEnd: Date,
-    team: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "team",
-      },
-    ],
+    ownerId: { type: String, require: true },
+    timeStart: { type: Date, require: true },
+    timeEnd: { type: Date, require: true },
+    venue: String,
+    phoneNumber: String,
+    numberPerTeam: Number,
+    registrationDeadline: Date,
+    numberTeam: Number,
+    pathImage: { type: String, default: "" },
+    privacy: { type: String, default: "private" },
+    team: [{ type: String }], // lưu danh sách id cầu team thi đấu thay vì ref
   },
   { timestamps: true }
 );

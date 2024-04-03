@@ -7,20 +7,27 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-
-const CreateTournament = () => {
+import DatePicker from 'react-date-picker';
+export default function CreateTournament() {
   const [policy, setPolicy] = useState("");
-  const [winPoint, setwinPoint] = useState(3);
-  const [breakEvenPoint, setbreakEvenPoint] = useState(1);
-  const [lossPoint, setlossPoint] = useState(0);
-  const [amountPerTeam, setamountPerTeam] = useState(5);
+  const [winPoint, setwinPoint] = useState(3); // thắng
+  const [DrawPoint, setDrawPoint] = useState(1); // hoà
+  const [lossPoint, setlossPoint] = useState(0); // thua
+  const [amountPerTeam, setamountPerTeam] = useState(5); // số lượng mỗi đội
 
+
+  const [nameTour, setnameTour] = useState();
+  const [phoneNumber, setphoneNumber] = useState();
+  const [venue, setvenue] = useState();
+  const [formatTour, setformatTour] = useState();
+  // handle change value input
   const handleChangePolicy = (event) => {
     setPolicy(event.target.value);
   };
   const handleamountPerTeam = (event) => {
     setamountPerTeam(event.target.value);
   };
+
   return (
     <div className="min-h-[1000px]">
       <div className="flex items-center justify-between">
@@ -42,7 +49,7 @@ const CreateTournament = () => {
       <div className="my-10 flex justify-between items-center">
         <div className="mt-0 mx-auto w-1/5 flex flex-col items-centererit">
           <img
-            src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
             alt="logo tournament"
             className="w-56 h-56 object-cover"
           />
@@ -53,12 +60,18 @@ const CreateTournament = () => {
             label="Tên giải đấu"
             variant="standard"
             className="mt-3"
+            onChange={(e) => {
+              setnameTour(e.target.value);
+            }}
           />
           <TextField
             id="standard-basic"
             label="Số điện thoại"
             variant="standard"
             className="mt-3"
+            onChange={(e) => {
+              setphoneNumber(e.target.value);
+            }}
           />
           <FormControl sx={{ minWidth: 120, mt: 3 }} size="small">
             <InputLabel id="demo-select-small-label">Chế độ</InputLabel>
@@ -78,16 +91,66 @@ const CreateTournament = () => {
             label="Địa điểm"
             variant="standard"
             className="mt-3"
+            onChange={(e) => {
+              setvenue(e.target.value);
+            }}
           />
+          <div className="flex justify-between my-2">
+          <p>Thời gian giải dấu:
+          </p>
+            <DatePicker
+              selected={startDate}
+              onChange={(e) => {
+                setStartDate(e.target.value)
+              }}
+            />
+            <DatePicker
+              selected={startDate}
+               onChange={(e) => {
+                setEndDate(e.target.value)
+              }}
+            />
+          </div>
         </div>
       </div>
       <Divider />
       <div className="my-10">
         <h3 className="text-xl">Hình thức thi đấu</h3>
         <div className="flex justify-between items-center  border p-4 rounded-md mt-4">
-          <div className="mt-0 mx-auto w-1/5 flex flex-col items-center scale-110">
+          <div
+            className="mt-0 mx-auto w-1/5 flex flex-col items-center scale-110"
+            onChange={() => {
+              setformatTour("1");
+            }}
+          >
             <img
-              src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
+              alt="logo tournament"
+              className="w-32 h-32 object-cover mt-4"
+            />
+            <p className="text-center py-2">Loại 1</p>
+          </div>
+          <div
+            className="mt-0 mx-auto w-1/5 flex flex-col items-center"
+            onChange={() => {
+              setformatTour("2");
+            }}
+          >
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
+              alt="logo tournament"
+              className="w-32 h-32 object-cover mt-4"
+            />
+            <p className="text-center py-2">Loại 1</p>
+          </div>
+          <div
+            className="mt-0 mx-auto w-1/5 flex flex-col items-center"
+            onChange={() => {
+              setformatTour("3");
+            }}
+          >
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
               alt="logo tournament"
               className="w-32 h-32 object-cover mt-4"
             />
@@ -95,7 +158,7 @@ const CreateTournament = () => {
           </div>
           <div className="mt-0 mx-auto w-1/5 flex flex-col items-center">
             <img
-              src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
               alt="logo tournament"
               className="w-32 h-32 object-cover mt-4"
             />
@@ -103,23 +166,7 @@ const CreateTournament = () => {
           </div>
           <div className="mt-0 mx-auto w-1/5 flex flex-col items-center">
             <img
-              src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"
-              alt="logo tournament"
-              className="w-32 h-32 object-cover mt-4"
-            />
-            <p className="text-center py-2">Loại 1</p>
-          </div>
-          <div className="mt-0 mx-auto w-1/5 flex flex-col items-center">
-            <img
-              src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"
-              alt="logo tournament"
-              className="w-32 h-32 object-cover mt-4"
-            />
-            <p className="text-center py-2">Loại 1</p>
-          </div>
-          <div className="mt-0 mx-auto w-1/5 flex flex-col items-center">
-            <img
-              src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
               alt="logo tournament"
               className="w-32 h-32 object-cover mt-4"
             />
@@ -148,11 +195,11 @@ const CreateTournament = () => {
             <input
               aria-label="Demo number input"
               placeholder="Điểm hoà"
-              value={breakEvenPoint}
+              value={DrawPoint}
               min={-10}
               max={10}
               type="number"
-              onChange={(event, val) => setbreakEvenPoint(val)}
+              onChange={(event, val) => setDrawPoint(val)}
               className="border rounded-md outline-none p-2 "
             />
           </div>
@@ -198,10 +245,10 @@ const CreateTournament = () => {
       </div>
       <Divider />
       <div className="my-10 flex justify-center items-center ">
-        <button className="bg-gray-500 text-white rounded-md py-3 px-8 hover:bg-red-500 transition">Tạo giải</button>
+        <button className="bg-gray-500 text-white rounded-md py-3 px-8 hover:bg-red-500 transition">
+          Tạo giải
+        </button>
       </div>
     </div>
   );
-};
-
-export default CreateTournament;
+}
