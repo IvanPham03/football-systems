@@ -3,8 +3,8 @@ import teamServices from "../services/user.services.js"
 const teamServices = new teamServices()
 
 export default class teamControllers {
-    async test(req, res){
+    async register(req, res){
       const t  = teamServices.test()
-      return t
+      return t.send("he")
     }
 }

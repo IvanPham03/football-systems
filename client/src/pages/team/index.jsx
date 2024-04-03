@@ -11,6 +11,8 @@ const Index = () => {
       {layout === "CreateTeam" && <CreateTeam />}
       {layout === "CreateTeamFormation" && <CreateTeamFormation  />}
       {layout === "FindTeam" && <FindTeam />}
+      {layout === "TeamInfo" && <TeamInfo />}
+
       {layout !== "CreateTeam" &&
         layout !== "CreateTeamFormation" &&
         layout !== "FindTeam" && <CreateTeam />}
