@@ -7,25 +7,55 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import DatePicker from 'react-date-picker';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import AxiosInstance from "../../config/AxiosInstance.js";
 export default function CreateTournament() {
-  const [policy, setPolicy] = useState("");
+  const [privacy, setprivacy] = useState("private");
   const [winPoint, setwinPoint] = useState(3); // thắng
   const [DrawPoint, setDrawPoint] = useState(1); // hoà
   const [lossPoint, setlossPoint] = useState(0); // thua
   const [amountPerTeam, setamountPerTeam] = useState(5); // số lượng mỗi đội
-
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const [nameTour, setnameTour] = useState();
   const [phoneNumber, setphoneNumber] = useState();
   const [venue, setvenue] = useState();
   const [formatTour, setformatTour] = useState();
+  const [amountTeam, setamountTeam] = useState();
+
   // handle change value input
-  const handleChangePolicy = (event) => {
-    setPolicy(event.target.value);
+  const handleChangeprivacy = (event) => {
+    setprivacy(event.target.value);
   };
   const handleamountPerTeam = (event) => {
     setamountPerTeam(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (
+      nameTour &&
+      startDate &&
+      endDate &&
+      phoneNumber &&
+      venue &&
+      formatTour
+    ) {
+      try {
+        let res = AxiosInstance.post("/tourmament/create", {
+          name: nameTour,
+          timeStart: startDate,
+          timeEnd: endDate,
+          venue: venue,
+          phoneNumber: phoneNumber,
+          numberPerTeam: amountPerTeam,
+          numberTeam: amountTeam,
+          pathImage: "",
+          privacy: privacy,
+        });
+      } catch (error) {}
+    }
   };
 
   return (
@@ -78,9 +108,9 @@ export default function CreateTournament() {
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
-              value={policy}
+              value={privacy}
               label="Chế độ"
-              onChange={handleChangePolicy}
+              onChange={handleChangeprivacy}
             >
               <MenuItem value={"private"}>Riêng tư</MenuItem>
               <MenuItem value={"public"}>Công khai</MenuItem>
@@ -96,20 +126,25 @@ export default function CreateTournament() {
             }}
           />
           <div className="flex justify-between my-2">
-          <p>Thời gian giải dấu:
-          </p>
-            <DatePicker
-              selected={startDate}
-              onChange={(e) => {
-                setStartDate(e.target.value)
-              }}
-            />
-            <DatePicker
-              selected={startDate}
-               onChange={(e) => {
-                setEndDate(e.target.value)
-              }}
-            />
+            <p>Thời gian giải dấu:</p>
+            <div className="flex justify-between gap-2">
+              <div>
+                <span>Từ: </span>{" "}
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  dateFormat="dd/MM/yyyy"
+                />
+              </div>
+              <div>
+                <span>đến: </span>
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  dateFormat="dd/MM/yyyy"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -218,30 +253,57 @@ export default function CreateTournament() {
           </div>
         </div>
       </div>
-      <div className="my-10">
-        <p>Số lượng người thi đấu trên sân của mỗi đội.</p>
-        <FormControl
-          sx={{ minWidth: 120, mt: 3 }}
-          size="small"
-          className="w-full"
-        >
-          <InputLabel id="demo-select-small-label">Số lượng</InputLabel>
-          <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            value={amountPerTeam}
-            label="Chế độ"
-            onChange={handleamountPerTeam}
+      <div className="my-10 flex gap-4 justify-between">
+        <div className="w-1/2">
+          <p>Số lượng đội:</p>
+          <FormControl
+            sx={{ minWidth: 120, mt: 3 }}
+            size="small"
             className="w-full"
           >
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={6}>6</MenuItem>
-            <MenuItem value={7}>7</MenuItem>
-            <MenuItem value={9}>9</MenuItem>
-            <MenuItem value={11}>11</MenuItem>
-          </Select>
-        </FormControl>
+            <InputLabel id="demo-select-small-label">Số lượng</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={amountPerTeam}
+              label="Chế độ"
+              onChange={handleamountPerTeam}
+              className="w-full"
+            >
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={7}>7</MenuItem>
+              <MenuItem value={9}>9</MenuItem>
+              <MenuItem value={11}>11</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <div className="w-1/2">
+          <p>Số lượng người thi đấu trên sân của mỗi đội.</p>
+          <FormControl
+            sx={{ minWidth: 120, mt: 3 }}
+            size="small"
+            className="w-full"
+          >
+            <InputLabel id="demo-select-small-label">Số lượng</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={amountPerTeam}
+              label="Chế độ"
+              onChange={handleamountPerTeam}
+              className="w-full"
+            >
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={7}>7</MenuItem>
+              <MenuItem value={9}>9</MenuItem>
+              <MenuItem value={11}>11</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       </div>
       <Divider />
       <div className="my-10 flex justify-center items-center ">

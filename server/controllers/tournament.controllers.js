@@ -32,17 +32,14 @@ export default class tournamentControllers {
     // Extract validated data
     const {
       name,
-      ownerId,
       timeStart,
       timeEnd,
       venue,
       phoneNumber,
       numberPerTeam,
-      registrationDeadline,
       numberTeam,
       pathImage,
       privacy,
-      team,
     } = req.body;
 
     try {
