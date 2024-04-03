@@ -41,7 +41,7 @@ const Card = () => {
           <p className="text-gray-700 text-base">
             <span>Chia Bảng Đấu ║</span>
             <span>Bóng Đá Sân 7 ║</span>
-            <span>{tournament.venue}</span>
+            {/* <span>{tournament.venue}</span> */}
           </p>
         </div>
         <div className="px-6 pt-4 pb-2">

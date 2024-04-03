@@ -11,7 +11,8 @@ import logo from "../../assets/logo/logo.png";
 import shirt from "../../assets/logo/shirt.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { Textarea } from "@material-tailwind/react";;
+import AxiosInstance from "../../config/AxiosInstance.js";
+
 const CreateTeam = () => {
   // const [policy, setPolicy] = useState("");
   // const [teamName,setTeamName] = useState("")
@@ -42,18 +43,42 @@ const CreateTeam = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) =>{
-    console.log(formData)
-  }
-  // const handleSubmit = async () => {
-  //   try {
-  //     // Gửi formData đến server bằng Axios
-  //     const response = await axios.post('http://localhost:8000/api/yourEndpoint', formData);
-  //     console.log('Server response:', response.data);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
+  // const handleSubmit = (e) =>{
+  //   console.log(formData)
+  // }
+  const handleSubmit = () => {
+    if (
+      formData.teamName &&
+      formData.level &&
+      formData.phone &&
+      formData.policy &&
+      formData.age &&
+      formData.contact &&
+      formData.email &&
+      formData.area &&
+      formData.period &&
+      formData.introduce &&
+      formData.selectedImaged 
+    ) {
+      try {
+        let res = AxiosInstance.post("/team/create", {
+          teamName: formData.teamName,
+          level: formData.level,
+          phone: formData.phone,
+          policy: formData.policy,
+          age: formData.age,
+          contact: formData.contact,
+          email: formData.email,
+          area: formData.area,
+          period: formData.period,
+          introduce: formData.introduce,
+          selectedImages: formData.selectedImages
+        });
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  };
 
   // const handleChangeImage = (event, index) => {
   //   const images = Array.from(event.target.files);
@@ -66,7 +91,7 @@ const CreateTeam = () => {
 
   const handleChangeImage = (event, index) => {
     const images = Array.from(event.target.files);
-    console.log(images[0].name)
+    // console.log(images[0].name)
     setFormData(prevState => ({
       ...prevState,
       selectedImages: prevState.selectedImages.map((image, i) => {
