@@ -19,31 +19,24 @@ export default function CreateTournament() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const [nameTour, setnameTour] = useState();
-  const [phoneNumber, setphoneNumber] = useState();
-  const [venue, setvenue] = useState();
-  const [formatTour, setformatTour] = useState();
-  const [amountTeam, setamountTeam] = useState();
+  const [nameTour, setnameTour] = useState("");
+  const [phoneNumber, setphoneNumber] = useState("");
+  const [venue, setvenue] = useState("");
+  const [formatTour, setformatTour] = useState(1);
+  const [amountTeam, setamountTeam] = useState(5);
 
-  // handle change value input
-  const handleChangeprivacy = (event) => {
-    setprivacy(event.target.value);
-  };
-  const handleamountPerTeam = (event) => {
-    setamountPerTeam(event.target.value);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       nameTour &&
       startDate &&
       endDate &&
       phoneNumber &&
       venue &&
-      formatTour
+      formatTour &&
+      privacy
     ) {
       try {
-        let res = AxiosInstance.post("/tourmament/create", {
+        let res = await AxiosInstance.post("/tournaments/create", {
           name: nameTour,
           timeStart: startDate,
           timeEnd: endDate,
@@ -54,7 +47,12 @@ export default function CreateTournament() {
           pathImage: "",
           privacy: privacy,
         });
-      } catch (error) {}
+        console.log("====================================");
+        console.log(res);
+        console.log("====================================");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -110,7 +108,9 @@ export default function CreateTournament() {
               id="demo-select-small"
               value={privacy}
               label="Chế độ"
-              onChange={handleChangeprivacy}
+              onChange={(e) => {
+                setprivacy(e.target.value);
+              }}
             >
               <MenuItem value={"private"}>Riêng tư</MenuItem>
               <MenuItem value={"public"}>Công khai</MenuItem>
@@ -267,7 +267,9 @@ export default function CreateTournament() {
               id="demo-select-small"
               value={amountPerTeam}
               label="Chế độ"
-              onChange={handleamountPerTeam}
+              onChange={(e) => {
+                setamountTeam(e.target.value);
+              }}
               className="w-full"
             >
               <MenuItem value={3}>3</MenuItem>
@@ -292,7 +294,9 @@ export default function CreateTournament() {
               id="demo-select-small"
               value={amountPerTeam}
               label="Chế độ"
-              onChange={handleamountPerTeam}
+              onChange={(e) => {
+                setamountPerTeam(e.target.value);
+              }}
               className="w-full"
             >
               <MenuItem value={3}>3</MenuItem>
@@ -307,7 +311,12 @@ export default function CreateTournament() {
       </div>
       <Divider />
       <div className="my-10 flex justify-center items-center ">
-        <button className="bg-gray-500 text-white rounded-md py-3 px-8 hover:bg-red-500 transition">
+        <button
+          className="bg-gray-500 text-white rounded-md py-3 px-8 hover:bg-red-500 transition"
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
           Tạo giải
         </button>
       </div>

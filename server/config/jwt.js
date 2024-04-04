@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
-const KEY_ACCESS_TOKEN = "process.env.keyAccess";
-const KEY_REFRESH_TOKEN = "process.env.keyAccess" // key này nên gen sinh key để có tính bảo mật cao, trong trường hợp này set
+const KEY_ACCESS_TOKEN = process.env.keyAccess;
+const KEY_REFRESH_TOKEN = process.env.keyAccess // key này nên gen sinh key để có tính bảo mật cao, trong trường hợp này set
 const signAccessToken = async (userId) => {
   return new Promise((resovle, reject) => {
     const payload = {
