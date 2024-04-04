@@ -13,6 +13,7 @@ const tournament = new Schema(
     numberTeam: Number,
     pathImage: { type: String, default: "" },
     privacy: { type: String, default: "private" },
+    formatTour: String,
     team: [{ type: String }], // lưu danh sách id cầu team thi đấu thay vì ref
   },
   { timestamps: true }

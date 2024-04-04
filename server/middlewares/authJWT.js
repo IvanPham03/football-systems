@@ -4,14 +4,14 @@ const verifyToken = (req, res, next) => {
   // check exist access token
   if(!req.cookies['access-token']){
     console.log(req.cookies['access-token']);
-    return res.status(401).send(createHttpError.Unauthorized)
+    return res.status(401).json(createHttpError.Unauthorized)
   }
   const token = req.cookies['access-token']
   console.log(token);
   jwt.verify(
     token, process.env.keyAccess, (err, payload) =>{
       if(err){
-        return res.status(401).send(createHttpError.Unauthorized)
+        return res.status(401).json(createHttpError.Unauthorized)
       }
       // payload có dạng như sau
       // {

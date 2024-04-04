@@ -72,18 +72,23 @@ export default class tournamentServices {
   async createTournament(req, res) {
     try {
       let newModel = new Tournament({
-        name: req.name,
-        timeStart: req.timeStart,
-        timeEnd: req.timeEnd,
-        venue: req.venue,
-        phoneNumber: req.phoneNumber,
-        ownerId: req.ownerId,
-        numberPerTeam: req.numberPerTeam,
-        registrationDeadline: req.registrationDeadline,
-        numberTeam: req.numberTeam,
+        name: req.body.name,
+        timeStart: req.body.timeStart,
+        timeEnd: req.body.timeEnd,
+        venue: req.body.venue,
+        phoneNumber: req.body.phoneNumber,
+        ownerId: req.payload.userId,
+        numberPerTeam: req.body.numberPerTeam,
+        registrationDeadline: req.body.registrationDeadline,
+        numberTeam: req.body.numberTeam,
+        privacy: req.body.privacy,
+        pathImage: req.body.pathImage
       });
       let rs = await newModel.save();
-      if (rs.ok === 1) {
+      if (rs) {
+        console.log('====================================');
+        console.log(rs);
+        console.log('====================================');
         return res.status(201).send("Tournament saved successfully!");
       } else return res.status(400).send("Tournament could not be saved.");
     } catch (error) {
