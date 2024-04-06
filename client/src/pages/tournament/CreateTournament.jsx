@@ -10,6 +10,7 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AxiosInstance from "../../config/AxiosInstance.js";
+import ListTeam from "./ListTeam.jsx";
 export default function CreateTournament() {
   const [privacy, setprivacy] = useState("private");
   const [winPoint, setwinPoint] = useState(3); // thắng
@@ -191,22 +192,6 @@ export default function CreateTournament() {
             />
             <p className="text-center py-2">Loại 1</p>
           </div>
-          <div className="mt-0 mx-auto w-1/5 flex flex-col items-center">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
-              alt="logo tournament"
-              className="w-32 h-32 object-cover mt-4"
-            />
-            <p className="text-center py-2">Loại 1</p>
-          </div>
-          <div className="mt-0 mx-auto w-1/5 flex flex-col items-center">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
-              alt="logo tournament"
-              className="w-32 h-32 object-cover mt-4"
-            />
-            <p className="text-center py-2">Loại 1</p>
-          </div>
         </div>
       </div>
       <Divider />
@@ -309,6 +294,8 @@ export default function CreateTournament() {
           </FormControl>
         </div>
       </div>
+      <Divider />
+      <ListTeam />
       <Divider />
       <div className="my-10 flex justify-center items-center ">
         <button

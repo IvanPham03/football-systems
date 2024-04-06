@@ -7,6 +7,7 @@ import tournamentRoute from './routes/tournament.routes.js'
 import authRoute from './routes/auth.routes.js'
 import initialUser from './seed-data/user.js'
 import initTournament from "./seed-data/tournament.js";
+import initTeam from './seed-data/team.js'
 import RedisStore from "connect-redis"
 import redisClient from './config/redis.config.js'
 import session from "express-session"
@@ -43,6 +44,7 @@ app.use(
 // seed data
 await initialUser()
 await initTournament()
+await initTeam()
 app.use("/", userRoute);
 app.use('/tournaments', tournamentRoute)
 app.use('/auth', authRoute)

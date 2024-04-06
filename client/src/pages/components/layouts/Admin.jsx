@@ -1,11 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import App from "../../admin/src/App";
 const Admin = () => {
   return (
     <div>
-      admin
+      <App />
     </div>
-  )
-}
+  );
+};
 
-export default Admin
+export default Admin;
