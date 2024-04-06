@@ -40,6 +40,7 @@ export default class authServices {
               refreshToken: refreshToken,
               userId: user._id,
               name: user.username,
+              role: user.role
             },
           ];
         }

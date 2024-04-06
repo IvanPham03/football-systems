@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+
+@keyframes slideDown {
+  from {
+    top: -100%;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}

@@ -1,22 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 const uiSlice = createSlice({
-    name: 'ui', 
-    initialState: {
-        view: "homeClient", 
-        modal: false,
-        mode: "",
-        login: false
+  name: "ui",
+  initialState: {
+    view: "homeClient",
+    modalFail: false,
+    mode: "",
+    login: false,
+  },
+  reducers: {
+    setView(state, action) {
+      console.log(action);
+      state.view = action.payload;
     },
-    reducers: {
-        setView(state, action) {
-            console.log(action);
-            state.view = action.payload
-        },
-        setModal (state, action) {
-            state.modal = action.payload
-        }
-    }
-})
+    setModalFail(state) {
+      state.modalFail = !state.modalFail;
+    },
+  },
+});
 
-export const {setView, setModal} = uiSlice.actions
-export default uiSlice.reducer
+export const { setView, setModalFail } = uiSlice.actions;
+export default uiSlice.reducer;
