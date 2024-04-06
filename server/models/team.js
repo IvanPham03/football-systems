@@ -1,6 +1,5 @@
 import { Schema } from "mongoose";
 import connect from "../config/db.config.js";
-
 const team = new Schema(
   {
     name: String,
@@ -14,6 +13,9 @@ const team = new Schema(
   },
   { timestamps: true }
 );
+function arrayLimit(val) {
+  return val.length <= 3;
+}
 
 const Team = connect.model("team", team);
 export default Team;

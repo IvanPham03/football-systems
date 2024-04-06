@@ -11,6 +11,7 @@ import initTeam from './seed-data/team.js'
 import RedisStore from "connect-redis"
 import redisClient from './config/redis.config.js'
 import session from "express-session"
+import teamRoute from "./routes/team.routes.js"
 const app = express();
 // Middlewares
 app.use(express.json());
@@ -48,6 +49,7 @@ await initTeam()
 app.use("/", userRoute);
 app.use('/tournaments', tournamentRoute)
 app.use('/auth', authRoute)
+app.use('/team', teamRoute)
 // Handle error when not match route
 app.use((req, res, next) => {
   const error = new Error("Not found!");

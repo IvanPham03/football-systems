@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "../footers/Footer";
+import Footer from "../footers/footer";
 import Navbar from "../navbars/navbar";
 import Fail from "../../components/modal/Fail";
 import { useSelector } from "react-redux";

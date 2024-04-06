@@ -2,7 +2,13 @@ import { Schema } from "mongoose"
 import connect from "../config/db.config.js"
 
 const player  = new Schema ({
-    name: String
+    name: String,
+    birth:Date,
+    jerseyNumber: String,
+    position: String,
+    email: String,
+    phone: String,
+    introduce: String
 },{
     timestamps: true
 })
