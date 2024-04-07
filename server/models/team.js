@@ -24,6 +24,7 @@ const team = new Schema(
       validate: [arrayLimit, '{PATH} exceeds the limit of 3']
     },
     introduce: String,
+<<<<<<< HEAD
     timeActive: String,
     // player: [{ type: Schema.Types.ObjectId, ref: "player" }],
     // teamFormation: [{ type: Schema.Types.ObjectId, ref: "teamFormation" }],
@@ -32,6 +33,12 @@ const team = new Schema(
     teamFormation: [ { type : String}],
     coach : { type : String}
 
+=======
+    period: String,
+    teamFormation: [{ type: Schema.Types.ObjectId, ref: "teamFormation" }],
+    coach: {type: Schema.Types.ObjectId, ref: "coach"},
+    player: [{ type: String }] // lưu danh sách id cầu thủ 
+>>>>>>> d8e41043a762a23376ac8be803f89b99899db560
   },
   { timestamps: true }
 );
