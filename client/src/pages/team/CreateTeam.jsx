@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Divider from "@mui/material/Divider";
 import {
   FormControl,
@@ -14,19 +14,9 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import AxiosInstance from "../../config/AxiosInstance.js";
 
 const CreateTeam = () => {
-  // const [policy, setPolicy] = useState("");
-  // const [teamName,setTeamName] = useState("")
-  // const [phone, setPhone] = useState("")
-  // const [level, setLevel] = useState("")
-  // const [age, setAge] = useState("")
-  // const [contact, setConTact] = useState("")
-  // const [email, setEmail] = useState("")
-  // const [area, setArea] = useState("")
-  // const [period, setPeriod] = useState("")
+
   const [file, setFile] = useState(logo)
-  // const [avt, setAvt] = useState()
-  // const [introduce, setIntroduce] = useState()
-  // const [selectedImages, setSelectedImages] = useState([]);
+
   const [formData, setFormData] = useState({
     teamName: '',
     level:'',
@@ -38,7 +28,9 @@ const CreateTeam = () => {
     area:'',
     period:'',
     introduce:'',
-    selectedImages:[null,null,null,null]
+    // logo: '',
+    // selectedImages:[null,null,null,null]
+    selectedImages:['','','','']
   });
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,6 +39,7 @@ const CreateTeam = () => {
   //   console.log(formData)
   // }
   const handleSubmit = () => {
+    console.log(formData)
     if (
       formData.teamName &&
       formData.level &&
@@ -58,9 +51,11 @@ const CreateTeam = () => {
       formData.area &&
       formData.period &&
       formData.introduce &&
-      formData.selectedImaged 
+      formData.selectedImages &&
+      formData.selectedImages.length > 0
     ) {
       try {
+        console.log(formData)
         let res = AxiosInstance.post("/team/create", {
           teamName: formData.teamName,
           level: formData.level,
@@ -69,10 +64,11 @@ const CreateTeam = () => {
           age: formData.age,
           contact: formData.contact,
           email: formData.email,
-          area: formData.area,
-          period: formData.period,
+          areaActive: formData.area,
+          timeActive: formData.period,
           introduce: formData.introduce,
-          selectedImages: formData.selectedImages
+          selectedImages: formData.selectedImages,
+          logo:''
         });
       } catch (error) {
         console.log(error)

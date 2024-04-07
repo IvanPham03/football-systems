@@ -5,8 +5,11 @@ const router = express.Router()
 
 const teamController = new teamControllers()
 
-router.get('/team/register', teamController.register)
+// router.get('/register', teamController.register)
+router.get('/', teamController.getAlls)
 router.post('/create', teamController.create)
-
+router.get('/:teamId', teamController.findById)
+// router.post('/createFormation', teamController.createFormation)
+// router.get('/', teamController.register);
 
 export default router

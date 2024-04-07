@@ -13,7 +13,7 @@ const team = new Schema(
     age: Number,
     contact: String,
     email: String,
-    area: String,
+    areaActive: String,
     uniform:{
       // type:String,
       // default:""
@@ -24,10 +24,13 @@ const team = new Schema(
       validate: [arrayLimit, '{PATH} exceeds the limit of 3']
     },
     introduce: String,
-    period: String,
-    player: [{ type: Schema.Types.ObjectId, ref: "player" }],
-    teamFormation: [{ type: Schema.Types.ObjectId, ref: "teamFormation" }],
-    coach: {type: Schema.Types.ObjectId, ref: "coach"}
+    timeActive: String,
+    // player: [{ type: Schema.Types.ObjectId, ref: "player" }],
+    // teamFormation: [{ type: Schema.Types.ObjectId, ref: "teamFormation" }],
+    // coach: {type: Schema.Types.ObjectId, ref: "coach"}
+    player: { type : String },
+    teamFormation: [ { type : String}],
+    coach : { type : String}
 
   },
   { timestamps: true }

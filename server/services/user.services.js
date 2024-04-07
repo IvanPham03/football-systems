@@ -1,5 +1,5 @@
 import db from "../models/index.js";
-const user = db.user
+// const user = db.user
 export default class userServices {
   // get detail user buy userid from token
   async test() {
@@ -9,4 +9,5 @@ export default class userServices {
       throw new Error(error);
     }
   }
+
 }

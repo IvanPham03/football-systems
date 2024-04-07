@@ -8,7 +8,9 @@ const player  = new Schema ({
     position: String,
     email: String,
     phone: String,
-    introduce: String
+    introduce: String,
+    // team: {type: Schema.Types.ObjectId, ref: "team"}
+    team: { type: String }
 },{
     timestamps: true
 })

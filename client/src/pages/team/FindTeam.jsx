@@ -9,7 +9,8 @@ import {
   Select,
   Stack,
 } from "@mui/material";
-import Card from "../components/cards/card";
+// import Card from "../components/cards/card";
+import Card from "./Card";
 const FindTeam = () => {
   const [focus, setFocus] = useState(false);
   const inputSearch = useRef();
