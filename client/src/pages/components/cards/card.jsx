@@ -24,10 +24,6 @@ const Card = () => {
     // <div >
     <div onClick={()=>handleClick("TeamInfo")}>
       <div class="max-w-sm rounded overflow-hidden shadow-lg" >
-const Card = ({ tournament }) => {
-  return (
-    <div key={tournament._id}>
-      <div className="max-w-sm rounded overflow-hidden shadow-lg">
         <img
           className="w-full"
           src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"
@@ -45,7 +41,7 @@ const Card = ({ tournament }) => {
           <p className="text-gray-700 text-base">
             <span>Chia Bảng Đấu ║</span>
             <span>Bóng Đá Sân 7 ║</span>
-            <span>{tournament.venue}</span>
+            {/* <span>{tournament.venue}</span> */}
           </p>
         </div>
         <div className="px-6 pt-4 pb-2">

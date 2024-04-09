@@ -5,11 +5,13 @@ const router = express.Router()
 
 const teamController = new teamControllers()
 
-// router.get('/register', teamController.register)
 router.get('/', teamController.getAlls)
 router.post('/create', teamController.create)
 router.get('/:teamId', teamController.findById)
-// router.post('/createFormation', teamController.createFormation)
-// router.get('/', teamController.register);
+router.get('/search/:keyword', teamController.findByKeyword)
+router.get('/searchEmail/:email', teamController.findByEmail)
+router.post('/createFormation', teamController.createFormation)
+
+
 
 export default router

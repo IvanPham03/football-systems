@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import CreateTeam from "./CreateTeam";
 import CreateTeamFormation from "./CreateTeamFormation";
 import FindTeam from "./FindTeam";
-import TeamInfo from "./TeamInfo";
 const Index = () => {
   const layout = useSelector((state) => state.ui.view);
   return (
@@ -11,11 +10,10 @@ const Index = () => {
       {layout === "CreateTeam" && <CreateTeam />}
       {layout === "CreateTeamFormation" && <CreateTeamFormation  />}
       {layout === "FindTeam" && <FindTeam />}
-      {layout === "TeamInfo" && <TeamInfo />}
 
       {layout !== "CreateTeam" &&
         layout !== "CreateTeamFormation" &&
-        layout !== "FindTeam" && <CreateTeam />}
+        layout !== "FindTeam" && <FindTeam />}
     </div>
   );
 };

@@ -4,12 +4,14 @@ const teamFormation = new Schema(
   {
     teamName: String,
     formationName: String,
-    number: number,
+    number: Number,
     formation: String,
     policy: String,
     pitch: String,
     // imagePlayer: String,
-    team: {type: Schema.Types.ObjectId, ref: "team"}
+    // team: {type: Schema.Types.ObjectId, ref: "team"}
+    players: [{ type : String,}],
+    team : { type : String}
   },
   { timestamps: true }
 );

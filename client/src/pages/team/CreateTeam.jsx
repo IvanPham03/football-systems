@@ -12,10 +12,14 @@ import shirt from "../../assets/logo/shirt.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import AxiosInstance from "../../config/AxiosInstance.js";
+import { useNavigate } from "react-router-dom";
+
 
 const CreateTeam = () => {
 
   const [file, setFile] = useState(logo)
+  const navigate = useNavigate();
+
 
   const [formData, setFormData] = useState({
     teamName: '',
@@ -38,7 +42,7 @@ const CreateTeam = () => {
   // const handleSubmit = (e) =>{
   //   console.log(formData)
   // }
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(formData)
     if (
       formData.teamName &&
@@ -56,7 +60,7 @@ const CreateTeam = () => {
     ) {
       try {
         console.log(formData)
-        let res = AxiosInstance.post("/team/create", {
+        let res = await AxiosInstance.post("/team/create", {
           teamName: formData.teamName,
           level: formData.level,
           phone: formData.phone,
@@ -70,6 +74,8 @@ const CreateTeam = () => {
           selectedImages: formData.selectedImages,
           logo:''
         });
+        const newModelId = res.data.teamId;
+        navigate(`details/${newModelId}`)
       } catch (error) {
         console.log(error)
       }

@@ -5,8 +5,12 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AxiosInstance from "../../config/AxiosInstance.js";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setView } from "../../redux-toolkit/slices/uiSlice.js";
+
 
 
 const CreateTeamFormation = () => {
@@ -24,6 +28,32 @@ const CreateTeamFormation = () => {
     { state: true, id: 10, num: 10, name: 'Cầu thủ J', position:''},
     { state: true, id: 11, num: 11, name: 'Cầu thủ K', position:''},
   ]);
+  const [formData, setFormData] = useState({
+    teamName: '',
+    formationName:'',
+    number: 11,
+    formation: 'test',
+    policy:'test',
+    pitch: 'sân 1',
+    // imagePlayer: 'test',
+    players: []//khai báo mảng gồm 11 phần tử 
+  });
+  const [errors, setErrors] = useState({
+    teamName: '',
+    formationName:'',
+    number: '',
+    formation: '',
+    policy:'',
+    pitch: '',
+    // imagePlayer: ''
+  });
+  const [email, setEmail] = useState("thang@gmail.com")
+  const [teams, setTeams] = useState([])
+  const [isDisabled, setIsDisabled] = useState(false)
+  const [idTeam, setIdTeam] = useState()
+  const [teamChosen, setTeamChosen] = useState()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //cập nhật checkbox
   const getRowById = (id) => {
@@ -32,6 +62,7 @@ const CreateTeamFormation = () => {
   const handleChecked = (id) => {
     handleInputChange(id, 'state', !getRowById(id).state)
   }
+
   //cập nhật rowData
   const handleInputChange = (id, columnName, value) => {
     const updatedData = rowData.map(row => {
@@ -43,29 +74,11 @@ const CreateTeamFormation = () => {
     setRowData(updatedData);
     convertRowDataToPlayers();
   };
-  const [formData, setFormData] = useState({
-    teamName: 'test',
-    formationName:'test',
-    number: 3,
-    formation: 'test',
-    policy:'test',
-    pitch: 'test',
-    imagePlayer: 'test',
-    players: {}//khai báo mảng gồm 11 phần tử 
-  });
+  
   const handleChange = (e) => {
     setErrors({ ...errors, [e.target.name]:'' });
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const [errors, setErrors] = useState({
-    teamName: '',
-    formationName:'',
-    number: '',
-    formation: '',
-    policy:'',
-    pitch: '',
-    imagePlayer: ''
-  });
   //lưu rowData vào players của formData
   const convertRowDataToPlayers = () => {
     const playersData = rowData.map(player => ({  
@@ -81,6 +94,58 @@ const CreateTeamFormation = () => {
     }));
 
   };
+  //xử lí click chọn team
+  const handleClick = (e, idTeam) => {
+    setIsDisabled(idTeam)
+    // console.log(`ID là: ${idTeam}`);
+    setIdTeam(idTeam)
+  }
+  //lấy về các team do user đó quản lý ( truy xuất bằng email của user)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await AxiosInstance.get(`/team/searchEmail/${email}`);
+        console.log("====================================");
+        console.log(response.data);
+        console.log("====================================");
+        setTeams(response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  },[]);
+  //lấy thông tin team được chọn
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await AxiosInstance.get(`/team/${idTeam}`);
+        console.log("====================================");
+        console.log(response.data);
+        console.log("====================================");
+        
+        setTeamChosen(response.data)
+        setFormData({ ...formData, teamName : response.data.name });
+        const playersFromServer = teamChosen.players;
+        const updatedRowData = playersFromServer.map((player, index) => ({
+          state: index < 11 ? true : false,
+          id: index + 1,
+          num: player.jerseyNumber,
+          name: player.name,
+          position: player.position,
+        }));
+        setRowData(updatedRowData);
+        
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  },[idTeam]);
+  //xử lí submit
   const handleSubmit = (e) =>{
     if (!formData.teamName) {
       setErrors({ ...errors, teamName: 'Cần điền tên đội' });
@@ -90,10 +155,10 @@ const CreateTeamFormation = () => {
       setErrors({ ...errors, formationName: 'Cần điền tên đội hình' });
       return;
     }
-    if (!formData.number) {
-      setErrors({ ...errors, number: 'Cần chọn số cầu thủ ' });
-      return;
-    }
+    // if (!formData.number) {
+    //   setErrors({ ...errors, number: 'Cần chọn số cầu thủ ' });
+    //   return;
+    // }
     if (!formData.formation) {
       setErrors({ ...errors, formation: 'Cần chọn đội hình thi đấu' });
       return;
@@ -116,7 +181,7 @@ const CreateTeamFormation = () => {
       formData.formation &&
       formData.policy &&
       formData.pitch &&
-      formData.imagePlayer &&
+      // formData.imagePlayer &&
       formData.players
     ) {
       try {
@@ -128,10 +193,12 @@ const CreateTeamFormation = () => {
           formation: formData.formation,
           policy: formData.policy,
           pitch: formData.pitch,
-          imagePlayer: formData.imagePlayer,
-          players: formData.players,
-
+          // imagePlayer: formData.imagePlayer,
+          // players: formData.players,
+          players: [],
         });
+        dispatch(setView("FindTeam"));
+        navigate("/team")
       } catch (error) {
         console.log(error)
       }
@@ -164,7 +231,15 @@ const CreateTeamFormation = () => {
                 {/* <MenuItem value={"internal"}>Nội bộ</MenuItem>
                 <MenuItem value={"public"}>Công khai</MenuItem>
                 <MenuItem value={"private"}>Riêng tư</MenuItem> */}
-                <MenuItem value={"--Vui lòng chọn--"}>--Vui lòng chọn--</MenuItem>
+                {teams.map(team => (
+                  <MenuItem 
+                    key={team._id} 
+                    value={team._id}
+                    onClick={(e) =>handleClick(e,team._id)}
+                  >
+                    {team.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <p className="my-2">Chọn vận động viên</p>
@@ -226,48 +301,6 @@ const CreateTeamFormation = () => {
                 </tr>
                 ))}
 
-                {/* <tr>
-                  <td >
-                    <input className="1/6" type="checkbox" name="" id="" />
-                  </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"1"}
-                      size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van A"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-full">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
-                    >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
-                      <Select
-                        labelId="demo-select-small-label"
-                        id="demo-select-small"
-                        label="Vị trí"
-                      >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </td>
-                </tr> */}
               </tbody>
             </table>
           </div>
@@ -279,11 +312,13 @@ const CreateTeamFormation = () => {
             id=" outlined-error-helper-text"
             label="Tên đội thi đấu"
             // variant="filled"
-            className=" w-full "
+            // className="w-full"
+            className={`w-full`}
             name="teamName"
             value={formData.teamName}
             error={!!errors.teamName}
             helperText={errors.teamName || ' '}
+            disabled = {isDisabled}
             onChange={(e) => handleChange(e)}
           />
           <TextField
@@ -409,7 +444,7 @@ const CreateTeamFormation = () => {
               <MenuItem value={'pitch_4'}>sân 4</MenuItem>
             </Select>
           </FormControl>
-          <FormControl
+          {/* <FormControl
             sx={{ minWidth: 200, mt: 3 }}
             size="small"
             className="w-full"
@@ -431,7 +466,7 @@ const CreateTeamFormation = () => {
               <MenuItem value={'img_3'}>Ảnh 3</MenuItem>
               <MenuItem value={'img_4'}>Ảnh 4</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
           <div className="flex justify-around my-10">
             <button className="px-4 py-1 bg-green-500 rounded-md hover:bg-gray-300 transition">
               Tải về
