@@ -250,7 +250,7 @@ function generateRandomBirthdate(minAge, maxAge) {
 }
 // tên đội
 // tên - sđt - emaill -số áo - vị trí - ngày sinh
-const data = [["nameteam", "players"]];
+const data = [["nameteam", "players", "age", "phonenumber", "email","contact"]];
 var count = 0;
 var teamcount = 0;
 var playteam = "";
@@ -278,7 +278,7 @@ for (let index = 0; index < 176; index++) {
   if (positioncount === 11) {
     positioncount = 0;
     const newData = row.slice(0, -1);
-    let datatemp = [team[teamcount], newData];
+    let datatemp = [team[teamcount], newData, "20-25", "0123456789", "TruongPham@gmail.com","TruongPham"];
     data.push(datatemp);
     row = "";
     teamcount++;

@@ -8,7 +8,7 @@ export async function initTournament() {
       let users = await User.find({})
       const count = await Tournament.estimatedDocumentCount();
       if (count === 0) {
-        await Promise.all([
+       let rs =  await Promise.all([
           new Tournament({
             name: "Giải đấu Bóng đá 2024",
             timeStart: "2024-05-01T08:00:00.000Z",
@@ -100,7 +100,8 @@ export async function initTournament() {
         ]);
         console.log("====================================");
         console.log("init seed data tournament");
-        console.log("====================================");
+        console.log("====================================")
+        
       }
     }
   } catch (error) {

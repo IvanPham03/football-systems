@@ -4,7 +4,6 @@ import React from "react";
 
 const Card = ({ tournament }) => {
   const percent = tournament.team.length/tournament.numberTeam*100 +"%"
-  console.log(percent);
   return (
     <div>
       <div className="max-w-sm rounded overflow-hidden shadow-lg">

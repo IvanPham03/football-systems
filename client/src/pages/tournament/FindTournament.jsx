@@ -16,9 +16,9 @@ const FindTournament = () => {
   const [tournaments, setTournaments] = useState(null);
 
   const inputSearch = useRef();
-  const [type, setType] = useState();
-  const [status, setStatus] = useState();
-  const [sort, setSort] = useState();
+  const [type, setType] = useState("");
+  const [status, setStatus] = useState("");
+  const [sort, setSort] = useState("");
 
   const handleChangeType = (arg) => {
     setType(arg.target.value);
@@ -34,9 +34,6 @@ const FindTournament = () => {
     const fetchData = async () => {
       try {
         const response = await AxiosInstance.get("/tournaments");
-        console.log("====================================");
-        console.log(response.data);
-        console.log("====================================");
         setTournaments(response.data);
       } catch (error) {
         console.error(error);

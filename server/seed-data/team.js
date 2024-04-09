@@ -1,4 +1,4 @@
-import Team from "../models/team.js";
+import Team from "../models/teamPlayer.js";
 import User from "../models/user.js";
 export async function initTournament() {
   try {

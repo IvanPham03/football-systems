@@ -20,9 +20,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClick = (type) => {
-    console.log("====================================");
-    console.log(type);
-    console.log("====================================");
     dispatch(setView(type));
   };
 

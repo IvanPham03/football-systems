@@ -3,7 +3,7 @@ import createHttpError from "http-errors";
 const verifyToken = (req, res, next) => {
   // check exist access token
   if(!req.cookies['access-token']){
-    console.log(req.cookies['access-token']);
+    // console.log(req.cookies['access-token']);
     return res.status(401).json(createHttpError.Unauthorized)
   }
   const token = req.cookies['access-token']

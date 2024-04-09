@@ -8,4 +8,5 @@ router.post('/create', [middleware.authJWT.verifyToken], tournamentController.cr
 router.put('/:id', tournamentController.updateTournament)
 router.delete('/:id', tournamentController.deleteTournament)
 router.get('/:id', tournamentController.findTournament)
+// router.get('/find-by-name/:name',tournamentController.createTournament)
 export default router
