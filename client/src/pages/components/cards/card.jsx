@@ -1,29 +1,7 @@
 import { faEye, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setView } from "../../../redux-toolkit/slices/uiSlice.js";
 
-
-const Card = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const ui = useSelector(state=>state.ui.view)
-  console.log(ui);
-  const handleClick = (type) => {
-    // console.log("====================================");
-    // console.log(type);
-    // console.log("====================================");
-    dispatch(setView(type)); 
-
-    navigate("/info")
-  };
-  return (
-    // <div >
-    <div onClick={()=>handleClick("TeamInfo")}>
-      <div class="max-w-sm rounded overflow-hidden shadow-lg" >
 const Card = ({ tournament }) => {
   return (
     <div key={tournament._id}>

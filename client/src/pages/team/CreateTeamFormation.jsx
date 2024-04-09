@@ -9,9 +9,9 @@ import React from "react";
 
 const CreateTeamFormation = () => {
   return (
-    <div className="flex my-10 gap-2">
+    <div className="flex my-10 gap-6">
       <div className="grow flex justify-between">
-        <div className="w-2/5">
+        <div className="2/5">
           <div>
             <p className="my-2">Chọn đội (nếu có)</p>
             <FormControl
@@ -27,484 +27,352 @@ const CreateTeamFormation = () => {
                 label="Chế độ"
               >
                 <MenuItem value={"1"}>1</MenuItem>
-                <MenuItem value={"2"}>2</MenuItem>
-                <MenuItem value={"3"}>3</MenuItem>
-                <MenuItem value={"4"}>4</MenuItem>
-                <MenuItem value={"5"}>5</MenuItem>
-                <MenuItem value={"6"}>6</MenuItem>
+                <MenuItem value={"1"}>2</MenuItem>
+                <MenuItem value={"1"}>3</MenuItem>
+                <MenuItem value={"1"}>4</MenuItem>
+                <MenuItem value={"1"}>5</MenuItem>
+                <MenuItem value={"1"}>6</MenuItem>
               </Select>
             </FormControl>
           </div>
           <div className="border border-solid border-gray-500 rounded-md p-2 mt-4">
             <p className="my-2">Chọn vận động viên</p>
-            <table className="w-full border-separate border-spacing-3">
+            <table className="w-full border-separate border-spacing-y-3">
               <thead>
                 <tr>
                   <th className="px-2"></th>
                   <th className="px-2">Số áo</th>
                   <th className="px-2">Tên trên áo</th>
-                  <th className="px-2">Vị trí thi đấu</th>
+                  <th className="px-2"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td >
-                    <input className="1/6" type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"1"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van A"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-full">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"2"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van B"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"3"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van C"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"4"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van D"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"5"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van E"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"6"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van F"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"7"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van F"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"8"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van G"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"9"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van H"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"10"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van J"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
                 <tr>
-                  <td >
-                    <input  type="checkbox" name="" id="" />
+                  <td>
+                    <input type="checkbox" name="" id="" />
                   </td>
-                  <td className="w-1/6">
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"11"}
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
                       size="small"
-                      inputProps={{ maxLength: 3 }}
-                      onChange={""}
-                    />
-                  </td>
-                  <td className="w-3/6" >
-                    <TextField
-                      id="outlined-size-small"
-                      defaultValue={"Nguyen Van K"}
-                      size="small"
-                      onChange={""}
-                    />
-
-                  </td>
-                  <td className="w-2/6">
-                    <FormControl 
-                      className="w-full" 
-                      size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        label="Vị trí"
+                        label="Chế độ"
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
@@ -513,7 +381,7 @@ const CreateTeamFormation = () => {
             </table>
           </div>
         </div>
-        <div className="w-1/6">
+        <div className="w-1/5">
           <TextField
             id="standard-basic"
             label="Tên đội thi đấu"
@@ -532,7 +400,7 @@ const CreateTeamFormation = () => {
             className="w-full"
           >
             <InputLabel id="demo-select-small-label">
-            Số lượng người thi đấu
+              Số lượng người thi đấu
             </InputLabel>
             <Select
               variant="standard"
@@ -634,7 +502,7 @@ const CreateTeamFormation = () => {
             </button>
           </div>
         </div>
-        <div className="w-2/6">
+        <div className="w-2/5">
           <p>Nhấn liên tiếp hai lần vào vận động viên để tạo chiến thuật</p>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Tactique_WM-fr.svg/250px-Tactique_WM-fr.svg.png"

@@ -4,14 +4,14 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import userRoute from './routes/user.routes.js'
 import tournamentRoute from './routes/tournament.routes.js'
+import teamPlayerRoute from './routes/teamPlayer.routes.js'
 import authRoute from './routes/auth.routes.js'
 import initialUser from './seed-data/user.js'
 import initTournament from "./seed-data/tournament.js";
-import initTeam from './seed-data/team.js'
+// import initTeam from './seed-data/team.js'
 import RedisStore from "connect-redis"
 import redisClient from './config/redis.config.js'
 import session from "express-session"
-import teamRoute from "./routes/team.routes.js"
 const app = express();
 // Middlewares
 app.use(express.json());
@@ -45,11 +45,11 @@ app.use(
 // seed data
 await initialUser()
 await initTournament()
-await initTeam()
+// await initTeam()
 app.use("/", userRoute);
 app.use('/tournaments', tournamentRoute)
 app.use('/auth', authRoute)
-app.use('/team', teamRoute)
+app.use('/team-player',teamPlayerRoute)
 // Handle error when not match route
 app.use((req, res, next) => {
   const error = new Error("Not found!");

@@ -4,19 +4,38 @@ const uiSlice = createSlice({
   initialState: {
     view: "homeClient",
     modalFail: false,
-    mode: "",
+    nodalEditTeam: false,
+    successModal: false,
+    spinner: false,
+    data: [],
     login: false,
   },
   reducers: {
     setView(state, action) {
-      console.log(action);
       state.view = action.payload;
     },
-    setModalFail(state) {
-      state.modalFail = !state.modalFail;
+    removeModalFail(state) {
+      state.modalFail = false;
+      state.data = "";
+    },
+    addModalFail(state, action) {
+      state.modalFail = true;
+      state.data = action.payload;
+    },
+    addSpinner(state) {
+      state.spinner = true;
+    },
+    removeSpinner(state) {
+      state.spinner = false;
+    },
+    addSuccessModal(state) {
+      state.successModal = true;
+    },
+    removeSuccessModal(state) {
+      state.successModal = false;
     },
   },
 });
 
-export const { setView, setModalFail } = uiSlice.actions;
+export const { setView, addModalFail, removeModalFail, addSpinner,removeSpinner, addSuccessModal, removeSuccessModal  } = uiSlice.actions;
 export default uiSlice.reducer;

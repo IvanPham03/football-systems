@@ -1,11 +1,9 @@
 import user from './user.js'
 import Tournament from './tournament.js';
-import Team from './team.js';
-import Player from './player.js';
+import TeamPlayer from './teamPlayer.js';
 const db = {}
 
 db.User = user
-db.Team = Team
+db.TeamPlayer = TeamPlayer
 db.Tournament = Tournament
-db.Player = Player
 export default db

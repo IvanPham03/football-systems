@@ -2,56 +2,89 @@ import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFileImport } from "@fortawesome/free-solid-svg-icons";
-import Card from "../team/Card";
 import * as XLSX from "xlsx";
-import { setModalFail } from "../../redux-toolkit/slices/uiSlice";
-const ListTeam = () => {
-  const [file, setFile] = useState(null);
-  const [data, setData] = useState([]);
+import {
+  addModalFail,
+  addSpinner,
+  removeSpinner,
+} from "../../redux-toolkit/slices/uiSlice";
+const ListTeam = ({ handlePropPlayer }) => {
   const inputRef = useRef();
-
+  const [file, setFile] = useState("");
   const dispatch = useDispatch();
-  const handleReadFile = (file) => {
+
+  const handleReadFile = (file, callback) => {
     // Hủy thao tác đọc file trước (nếu có)
     const reader = new FileReader();
     if (reader && reader.readyState === 1) {
       reader.abort();
     }
-    setFile(file);
     reader.onload = (event) => {
-      //reader không có định nghĩa sẵn cho cách xử lý sự kiện onload do đó phải viết truoc reader
-      const arrayBuffer = event.target.result;
-      const workbook = XLSX.read(arrayBuffer, { type: "array" }); //Dòng này sử dụng hàm XLSX.read để phân tích nội dung của arrayBuffer như một bảng tính Excel.
-      // Lặp qua từng hàng trong worksheet đầu tiên
-      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const jsonData = XLSX.utils.sheet_to_json(worksheet);
-      setData(jsonData);
-      jsonData.forEach((element) => {
-        if (element.nameteam && element.players) {
-          // loop qua xem dung dinh dang khog
-          // tên-sđt-emaill-số áo-vị trí-ngày sinh
-          let players = element.players.split(",");
-          players.forEach((e) => {
-            let temp = e.split("-");
-            if (!temp.length === 6) {
-              document.body.classList.add("overflow-hidden");
-              dispatch(setModalFail());
-              return;
-            }
-          });
-        } else {
-          // Chặn scroll khi modal hiển thị
+      try {
+        //reader không có định nghĩa sẵn cho cách xử lý sự kiện onload do đó phải viết truoc reader
+        const arrayBuffer = event.target.result;
+
+        const workbook = XLSX.read(arrayBuffer, { type: "array" }); //Dòng này sử dụng hàm XLSX.read để phân tích nội dung của arrayBuffer như một bảng tính Excel.
+        // Kiểm tra định dạng file
+        if (workbook.Workbook === undefined) {
           document.body.classList.add("overflow-hidden");
-          dispatch(setModalFail());
+          dispatch(addModalFail("Định dạng file không hợp lệ"));
+          console.error("File không hợp lệ");
           return;
         }
-      });
+        // Lặp qua từng hàng trong worksheet đầu tiên
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+        let i = 0;
+        let flag = true;
+        for (; i < jsonData.length; i++) {
+          if (
+            jsonData[i].nameteam &&
+            jsonData[i].players &&
+            jsonData[i].phonenumber &&
+            jsonData[i].age &&
+            jsonData[i].contact &&
+            jsonData[i].email
+          ) {
+            // loop qua xem dung dinh dang khog
+            // tên-sđt-emaill-số áo-vị trí-ngày sinh
+            let players = jsonData[i].players.split(",");
+            players.forEach((e) => {
+              let temp = e.split("-");
+              if (!temp.length === 6) {
+                document.body.classList.add("overflow-hidden");
+                dispatch(
+                  addModalFail("Cấu trúc không hợp lệ, vui lòng kiểm tra lại.")
+                );
+                return; // Thoát khỏi vòng lặp for
+              }
+            });
+          } else {
+            // Chặn scroll khi modal hiển thị
+            document.body.classList.add("overflow-hidden");
+            dispatch(
+              addModalFail("Cấu trúc không hợp lệ, vui lòng kiểm tra lại.")
+            );
+            console.log("Cấu trúc không hợp lệ, vui lòng kiểm tra lại");
+            flag = false;
+            break; // Thoát khỏi vòng lặp for
+          }
+        }
+        if (flag) {
+          setFile(file.name);
+          callback(jsonData);
+        }
+      } catch (error) {
+        // không đọc được là quăng lỗi luộn, không nói nhiều
+        document.body.classList.add("overflow-hidden");
+        dispatch(addModalFail("File không hợp lệ."));
+      }
     };
     reader.readAsArrayBuffer(file);
-
-    // Reset trạng thái file sau khi xử lý xong
-    setFile(null);
+    dispatch(removeSpinner());
   };
+
   // Create a reference to the hidden file input element
   const hiddenFileInput = useRef(null);
 
@@ -64,8 +97,12 @@ const ListTeam = () => {
   // to handle the user-selected file
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
-    handleReadFile(fileUploaded);
-    hiddenFileInput.current.value = null; // xoá file hiện tại để nếu người dùng click cùng 1 file 2 lần thì nó vẫn đọc
+    dispatch(addSpinner());
+    setTimeout(() => {
+      handleReadFile(fileUploaded, handlePropPlayer);
+      hiddenFileInput.current.value = null;
+    }, 3000);
+    // xoá file hiện tại để nếu người dùng click cùng 1 file 2 lần thì nó vẫn đọc
   };
   return (
     <div>
@@ -89,22 +126,10 @@ const ListTeam = () => {
               ref={hiddenFileInput}
               style={{ display: "none" }} // Make the file input element invisible
             />
+            <span className="ml-2">{file}</span>
           </div>
           <p>Tải file dữ liệu mẫu</p>
         </div>
-      </div>
-      <div className="grid grid-cols-4 gap-4 justify-items-center my-4">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
       </div>
     </div>
   );

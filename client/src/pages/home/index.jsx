@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Success from '../components/modal/Success'
 const Home = () => {
   return (
     <div>
-      Home Client
+    <Success />
     </div>
   )
 }
