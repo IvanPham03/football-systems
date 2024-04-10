@@ -25,8 +25,16 @@ const Login = () => {
       console.log(res.data);
       console.log('====================================');
       if (res.status) {
-        dispatch(login({token: res.data?.accesstoken, name: res.data?.name}))
-        navigate("/");
+        dispatch(login({token: res.data[0]?.accesstoken, name: res.data[0]?.name, role: res.data[0]?.role}))
+        if (res.data[0]?.role === 'admin') {
+         console.log('====================================');
+         console.log(res.data[0]?.role);
+         console.log('====================================');
+          navigate("/admin");
+        }
+        else {
+          navigate('/')
+        }
       } else {
         seterror("Email hoặc mật khẩu không chính xác!");
       }

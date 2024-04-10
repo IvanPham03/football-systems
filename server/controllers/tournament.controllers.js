@@ -1,17 +1,9 @@
 import tournamentServices from "../services/tournament.services.js";
-import { validationResult } from "express-validator";
+import { validationResult, check } from "express-validator";
 
-const tournamentService = new tournamentServices();
 
-export default class tournamentControllers {
-  //
-  async getAlls(req, res) {
-    return await tournamentService.getAlls(req, res);
-  }
-  //
-  async createTournament(req, res) {
-    // Define validation rules (adjust as needed)
-    const validateTournament = [
+
+ const validateTournament = [
       check("name").notEmpty().withMessage("Tournament name is required"),
       check("ownerId").notEmpty().withMessage("Owner ID is required"),
       check("timeStart")
@@ -23,27 +15,25 @@ export default class tournamentControllers {
         .withMessage("End time must be after start time"), // Ensure end time is after start time
     ];
 
+const tournamentService = new tournamentServices();
+
+export default class tournamentControllers {
+  //
+  async getAlls(req, res) {
+    return await tournamentService.getAlls(req, res);
+  }
+  //
+  async createTournament(req, res) {
+   
     // Validate input data
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() }); // Return bad request with error details
     }
 
-    // Extract validated data
-    const {
-      name,
-      timeStart,
-      timeEnd,
-      venue,
-      phoneNumber,
-      numberPerTeam,
-      numberTeam,
-      pathImage,
-      privacy,
-    } = req.body;
 
     try {
-      // Call service to save tournament (replace with your service logic)
+      // Call service to save tournament 
       const createdTournament = await tournamentService.createTournament(
         req,
         res

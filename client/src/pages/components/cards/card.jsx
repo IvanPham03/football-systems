@@ -1,10 +1,6 @@
 import { faEye, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setView } from "../../../redux-toolkit/slices/uiSlice.js";
 
 
 const Card = () => {
@@ -24,6 +20,7 @@ const Card = () => {
     // <div >
     <div onClick={()=>handleClick("TeamInfo")}>
       <div class="max-w-sm rounded overflow-hidden shadow-lg" >
+
         <img
           className="w-full"
           src="https://www.topgear.com/sites/default/files/2023/09/33136-RS7PERFORMANCEASCARIBLUEJORDANBUTTERS208.jpg?w=1784&h=1004"

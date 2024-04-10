@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Divider from "@mui/material/Divider";
 import {
   FormControl,
@@ -7,43 +8,63 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AxiosInstance from "../../config/AxiosInstance.js";
+import ListTeam from "./ListTeam.jsx";
+import Format from "./formatTournaments";
+import Card from "../team/Card.jsx";
+import { useSelector } from "react-redux";
+import {
+  addSuccessModal,
+  removeSpinner,
+} from "../../redux-toolkit/slices/uiSlice.js";
+import { setUpdate } from "../../redux-toolkit/slices/modalEditTeamSlice.js";
+import logo from '../../assets/logo/logo.png'
 export default function CreateTournament() {
+  const updateTeam = useSelector((state) => state.modalEditTeam.updateClick);
+  const nameRedux = useSelector((state) => state.modalEditTeam.name);
+  const playersRedux = useSelector((state) => state.modalEditTeam.players);
+  const emailRedux = useSelector((state) => state.modalEditTeam.email);
+  const contactRedux = useSelector((state) => state.modalEditTeam.contact);
+  const indexRedux = useSelector((state) => state.modalEditTeam.index);
+  const dispatch = useDispatch();
+  const phoneNumberRedux = useSelector(
+    (state) => state.modalEditTeam.phoneNumber
+  );
+  const ageRedux = useSelector((state) => state.modalEditTeam.age);
   const [privacy, setprivacy] = useState("private");
-  const [winPoint, setwinPoint] = useState(3); // thắng
-  const [DrawPoint, setDrawPoint] = useState(1); // hoà
-  const [lossPoint, setlossPoint] = useState(0); // thua
   const [amountPerTeam, setamountPerTeam] = useState(5); // số lượng mỗi đội
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [email, setEmail] = useState("");
+  const [nameTour, setnameTour] = useState("");
+  const [phoneNumber, setphoneNumber] = useState("");
+  const [venue, setvenue] = useState("");
+  const [formatTour, setformatTour] = useState("Knockout");
+  const [amountTeam, setamountTeam] = useState(5);
+  const [registrationDeadline, setRegistrationDeadline] = useState(new Date());
+  const [dataDetails, setDataDetails] = useState("");
+  const [teamPlayers, setTeamPlayers] = useState(); //
 
-  const [nameTour, setnameTour] = useState();
-  const [phoneNumber, setphoneNumber] = useState();
-  const [venue, setvenue] = useState();
-  const [formatTour, setformatTour] = useState();
-  const [amountTeam, setamountTeam] = useState();
-
-  // handle change value input
-  const handleChangeprivacy = (event) => {
-    setprivacy(event.target.value);
+  // truyền props lấy data từ file
+  const handlePropPlayer = (data) => {
+    let res = handleFormatData(data);
+    setTeamPlayers(res);
   };
-  const handleamountPerTeam = (event) => {
-    setamountPerTeam(event.target.value);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       nameTour &&
       startDate &&
       endDate &&
       phoneNumber &&
       venue &&
-      formatTour
+      formatTour &&
+      privacy
     ) {
       try {
-        let res = AxiosInstance.post("/tourmament/create", {
+        let res = await AxiosInstance.post("/team-player/create", {
           name: nameTour,
           timeStart: startDate,
           timeEnd: endDate,
@@ -52,11 +73,75 @@ export default function CreateTournament() {
           numberPerTeam: amountPerTeam,
           numberTeam: amountTeam,
           pathImage: "",
+          formatTour: formatTour,
           privacy: privacy,
+          data: teamPlayers,
+          registrationDeadline: registrationDeadline,
+          dataDetails: dataDetails
         });
-      } catch (error) {}
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+
+  // handle format data from file
+  const handleFormatData = (data) => {
+    const res = data.map((e) => {
+      const player = e.players.split(",");
+      const details = player.map((e) => {
+        // tên - sđt - email - số áo - vị trí - ngày sinh
+        const detail = e.split("-");
+        // dateString = "02/12/2023"; parse
+        const dob = moment(detail[5], "DD/MM/YYYY").toDate();
+
+        return {
+          name: detail[0],
+          phoneNumber: detail[1],
+          email: detail[2],
+          JerseyNumber: detail[3],
+          position: detail[4],
+          dob: dob,
+        };
+      });
+      return {
+        name: e.nameteam,
+        players: details,
+        contact: e.contact,
+        phoneNumber: e.phonenumber,
+        email: e.email,
+        age: e.age,
+      };
+    });
+    return res;
+  };
+
+  //  update team click save 
+  if (updateTeam) {
+    // handleFormatData
+    console.log("change");
+    console.log(teamPlayers[indexRedux]);
+    teamPlayers[indexRedux] = {
+      ...teamPlayers[indexRedux],
+      name: nameRedux,
+      contact: contactRedux,
+      email: emailRedux,
+      phoneNumber: phoneNumberRedux,
+      age: ageRedux,
+    };
+    setTimeout(() => {
+      dispatch(removeSpinner());
+      dispatch(addSuccessModal());
+    }, 3000);
+    dispatch(setUpdate(false))
+  }
+
+  // tryền props lấy format tour
+  const handleFormatTour = (dataDetails) =>{
+    setDataDetails(dataDetails)
+    console.log(dataDetails);
+  }
 
   return (
     <div className="min-h-[1000px]">
@@ -86,7 +171,6 @@ export default function CreateTournament() {
         </div>
         <div className="w-2/3 flex  flex-col gap-3">
           <TextField
-            id="standard-basic"
             label="Tên giải đấu"
             variant="standard"
             className="mt-3"
@@ -94,15 +178,25 @@ export default function CreateTournament() {
               setnameTour(e.target.value);
             }}
           />
-          <TextField
-            id="standard-basic"
-            label="Số điện thoại"
-            variant="standard"
-            className="mt-3"
-            onChange={(e) => {
-              setphoneNumber(e.target.value);
-            }}
-          />
+          <div className="flex justify-between gap-10">
+            <TextField
+              label="Số điện thoại"
+              variant="standard"
+              className="mt-3 grow"
+              onChange={(e) => {
+                setphoneNumber(e.target.value);
+              }}
+            />
+            <TextField
+              label="Email"
+              variant="standard"
+              value={email}
+              className="mt-3 grow"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
           <FormControl sx={{ minWidth: 120, mt: 3 }} size="small">
             <InputLabel id="demo-select-small-label">Chế độ</InputLabel>
             <Select
@@ -110,14 +204,15 @@ export default function CreateTournament() {
               id="demo-select-small"
               value={privacy}
               label="Chế độ"
-              onChange={handleChangeprivacy}
+              onChange={(e) => {
+                setprivacy(e.target.value);
+              }}
             >
               <MenuItem value={"private"}>Riêng tư</MenuItem>
               <MenuItem value={"public"}>Công khai</MenuItem>
             </Select>
           </FormControl>
           <TextField
-            id="standard-basic"
             label="Địa điểm"
             variant="standard"
             className="mt-3"
@@ -146,6 +241,20 @@ export default function CreateTournament() {
               </div>
             </div>
           </div>
+          <div className="flex justify-between ">
+            <span className="flex items-center gap-2 grow">
+              <p>Cho phép người chơi tham gia</p>
+              <input type="checkbox" className="h-4 w-4" />
+            </span>
+            <div className="">
+              <span>Hạn đăng ký: </span>
+              <DatePicker
+                selected={registrationDeadline}
+                onChange={(date) => setRegistrationDeadline(date)}
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <Divider />
@@ -153,106 +262,54 @@ export default function CreateTournament() {
         <h3 className="text-xl">Hình thức thi đấu</h3>
         <div className="flex justify-between items-center  border p-4 rounded-md mt-4">
           <div
-            className="mt-0 mx-auto w-1/5 flex flex-col items-center scale-110"
-            onChange={() => {
-              setformatTour("1");
+            className={`mt-0 mx-auto w-1/5 flex transition-all flex-col items-center hover:cursor-pointer ${
+              formatTour === "Knockout" ? "scale-110" : ""
+            }`}
+            onClick={() => {
+              setformatTour("Knockout");
             }}
           >
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
+               src={logo}
               alt="logo tournament"
               className="w-32 h-32 object-cover mt-4"
             />
-            <p className="text-center py-2">Loại 1</p>
+            <p className="text-center py-2">Đấu loại trực tiếp</p>
           </div>
           <div
-            className="mt-0 mx-auto w-1/5 flex flex-col items-center"
-            onChange={() => {
-              setformatTour("2");
+            className={`mt-0 mx-auto w-1/5 flex transition-all flex-col items-center hover:cursor-pointer ${
+              formatTour === "League" ? "scale-110" : ""
+            }`}
+            onClick={() => {
+              setformatTour("League");
             }}
           >
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
+              src={logo}
               alt="logo tournament"
               className="w-32 h-32 object-cover mt-4"
             />
-            <p className="text-center py-2">Loại 1</p>
+            <p className="text-center py-2">Đấu vòng tròn</p>
           </div>
           <div
-            className="mt-0 mx-auto w-1/5 flex flex-col items-center"
-            onChange={() => {
-              setformatTour("3");
+            className={`mt-0 mx-auto w-1/5 flex transition-all flex-col items-center hover:cursor-pointer ${
+              formatTour === "Hybrid" ? "scale-110" : ""
+            }`}
+            onClick={() => {
+              setformatTour("Hybrid");
             }}
           >
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
+                src={logo}
               alt="logo tournament"
               className="w-32 h-32 object-cover mt-4"
             />
-            <p className="text-center py-2">Loại 1</p>
-          </div>
-          <div className="mt-0 mx-auto w-1/5 flex flex-col items-center">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
-              alt="logo tournament"
-              className="w-32 h-32 object-cover mt-4"
-            />
-            <p className="text-center py-2">Loại 1</p>
-          </div>
-          <div className="mt-0 mx-auto w-1/5 flex flex-col items-center">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLzV7rP57gl8FkWOyNKYRaDXptXufeYO0ix0_MACg9BF1N3plZm1_bmlF-CzRMGGP569A&usqp=CAU"
-              alt="logo tournament"
-              className="w-32 h-32 object-cover mt-4"
-            />
-            <p className="text-center py-2">Loại 1</p>
+            <p className="text-center py-2">Đấu kết hợp</p>
           </div>
         </div>
       </div>
       <Divider />
-      <div className="my-10">
-        <div className="flex justify-between gap-10">
-          <div className="flex flex-col w-1/3">
-            <label htmlFor="">Điểm thắng</label>
-            <input
-              aria-label="Demo number input"
-              placeholder="Điểm thắng"
-              value={winPoint}
-              min={-10}
-              max={10}
-              type="number"
-              onChange={(event, val) => setwinPoint(val)}
-              className="border rounded-md outline-none p-2 "
-            />
-          </div>
-          <div className="flex flex-col w-1/3">
-            <label htmlFor="">Điểm hoà</label>
-            <input
-              aria-label="Demo number input"
-              placeholder="Điểm hoà"
-              value={DrawPoint}
-              min={-10}
-              max={10}
-              type="number"
-              onChange={(event, val) => setDrawPoint(val)}
-              className="border rounded-md outline-none p-2 "
-            />
-          </div>
-          <div className="flex flex-col w-1/3">
-            <label htmlFor="">Điểm thua</label>
-            <input
-              aria-label="Demo number input"
-              placeholder="Điểm thua"
-              value={lossPoint}
-              min={-10}
-              max={10}
-              type="number"
-              onChange={(event, val) => setlossPoint(val)}
-              className="border rounded-md outline-none p-2 "
-            />
-          </div>
-        </div>
-      </div>
+      <Format type={formatTour} handleFormatTour={handleFormatTour}/>
       <div className="my-10 flex gap-4 justify-between">
         <div className="w-1/2">
           <p>Số lượng đội:</p>
@@ -267,7 +324,9 @@ export default function CreateTournament() {
               id="demo-select-small"
               value={amountPerTeam}
               label="Chế độ"
-              onChange={handleamountPerTeam}
+              onChange={(e) => {
+                setamountTeam(e.target.value);
+              }}
               className="w-full"
             >
               <MenuItem value={3}>3</MenuItem>
@@ -292,7 +351,9 @@ export default function CreateTournament() {
               id="demo-select-small"
               value={amountPerTeam}
               label="Chế độ"
-              onChange={handleamountPerTeam}
+              onChange={(e) => {
+                setamountPerTeam(e.target.value);
+              }}
               className="w-full"
             >
               <MenuItem value={3}>3</MenuItem>
@@ -305,9 +366,26 @@ export default function CreateTournament() {
           </FormControl>
         </div>
       </div>
+      <p className="bg-red-500 text-white my-4 py-1 px-2 rounded-md">
+        Đối với cấu hình này thì số lượng trận đấu của giải là:{" "}
+        <span className="font-bold">100</span>{" "}
+      </p>
+      <Divider />
+      <ListTeam handlePropPlayer={handlePropPlayer} />
+      <div className="grid grid-cols-4 gap-4 justify-items-center my-4">
+        {teamPlayers &&
+          teamPlayers.map((e, i) => {
+            return <Card key={i} data={e} index={i} />;
+          })}
+      </div>
       <Divider />
       <div className="my-10 flex justify-center items-center ">
-        <button className="bg-gray-500 text-white rounded-md py-3 px-8 hover:bg-red-500 transition">
+        <button
+          className="bg-gray-500 text-white rounded-md py-3 px-8 hover:bg-red-500 transition"
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
           Tạo giải
         </button>
       </div>

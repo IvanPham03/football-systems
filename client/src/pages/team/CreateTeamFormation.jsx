@@ -205,11 +205,19 @@ const CreateTeamFormation = () => {
     }
   }
   return (
+<<<<<<< HEAD
     
     <div className="flex my-10 gap-2">
       <div className="grow flex justify-between">
         <div className="w-2/5">
           <div className="border border-solid border-gray-500 rounded-md p-2 mt-4">
+=======
+    <div className="flex my-10 gap-6">
+      <div className="grow flex justify-between">
+        <div className="2/5">
+          <div>
+            <p className="my-2">Chọn đội (nếu có)</p>
+>>>>>>> 06cfe66d3fba75ac6e8e9e756217b2615281ff37
             <FormControl
               sx={{ minWidth: 200, mt: 3 }}
               size="small"
@@ -228,6 +236,7 @@ const CreateTeamFormation = () => {
                 defaultValue={"--Vui lòng chọn--"}
                 // value="--Vui lòng chọn--"
               >
+<<<<<<< HEAD
                 {/* <MenuItem value={"internal"}>Nội bộ</MenuItem>
                 <MenuItem value={"public"}>Công khai</MenuItem>
                 <MenuItem value={"private"}>Riêng tư</MenuItem> */}
@@ -240,19 +249,28 @@ const CreateTeamFormation = () => {
                     {team.name}
                   </MenuItem>
                 ))}
+=======
+                <MenuItem value={"1"}>1</MenuItem>
+                <MenuItem value={"1"}>2</MenuItem>
+                <MenuItem value={"1"}>3</MenuItem>
+                <MenuItem value={"1"}>4</MenuItem>
+                <MenuItem value={"1"}>5</MenuItem>
+                <MenuItem value={"1"}>6</MenuItem>
+>>>>>>> 06cfe66d3fba75ac6e8e9e756217b2615281ff37
               </Select>
             </FormControl>
             <p className="my-2">Chọn vận động viên</p>
-            <table className="w-full border-separate border-spacing-3">
+            <table className="w-full border-separate border-spacing-y-3">
               <thead>
                 <tr>
                   <th className="px-2"></th>
                   <th className="px-2">Số áo</th>
                   <th className="px-2">Tên trên áo</th>
-                  <th className="px-2">Vị trí thi đấu</th>
+                  <th className="px-2"></th>
                 </tr>
               </thead>
               <tbody>
+<<<<<<< HEAD
                 {rowData.map(row => (
                 <tr key={row.id}>
                   <td >
@@ -280,32 +298,354 @@ const CreateTeamFormation = () => {
                   <td className="w-full">
                     <FormControl 
                       className="w-full" 
+=======
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+>>>>>>> 06cfe66d3fba75ac6e8e9e756217b2615281ff37
                       size="small"
+                      className="my-2 w-full"
                     >
-                      <InputLabel id="demo-select-small-label">Vị trí</InputLabel>
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-select-small-label"
                         id="demo-select-small"
+<<<<<<< HEAD
                         label="Vị trí"
                         value={row.position}
                         onChange={(e) => handleInputChange(row.id,'position',e.target.value)}
+=======
+                        label="Chế độ"
+>>>>>>> 06cfe66d3fba75ac6e8e9e756217b2615281ff37
                       >
-                        <MenuItem value={"ThuMon"}>Thủ môn</MenuItem>
-                        <MenuItem value={"HauVe"}>Hậu vệ</MenuItem>
-                        <MenuItem value={"TienVe"}>Tiền vệ</MenuItem>
-                        <MenuItem value={"TienDao"}>Tiền đạo</MenuItem>
-                        <MenuItem value={"Khac"}>Khác</MenuItem>
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
                       </Select>
                     </FormControl>
                   </td>
                 </tr>
+<<<<<<< HEAD
                 ))}
 
+=======
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
+                  <td className="text-center">1</td>
+                  <td className="text-center">Áo 1</td>
+                  <td>
+                    <FormControl
+                      sx={{ minWidth: 130 }}
+                      size="small"
+                      className="my-2 w-full"
+                    >
+                      <InputLabel id="demo-select-small-label">
+                        Vị trí thi đấu
+                      </InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        label="Chế độ"
+                      >
+                        <MenuItem value={"1"}>Thủ môn</MenuItem>
+                        <MenuItem value={"1"}>Hậu vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền vệ</MenuItem>
+                        <MenuItem value={"1"}>Tiền đạo</MenuItem>
+                        <MenuItem value={"1"}>Khác</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </td>
+                </tr>
+>>>>>>> 06cfe66d3fba75ac6e8e9e756217b2615281ff37
               </tbody>
             </table>
           </div>
         </div>
-        <div className="w-1/6">
+        <div className="w-1/5">
           <TextField
           sx={{ minWidth: 200, mt: 3 }}
             // id="standard-basic"
@@ -338,7 +678,11 @@ const CreateTeamFormation = () => {
             className="w-full"
           >
             <InputLabel id="demo-select-small-label">
+<<<<<<< HEAD
             Số người <span className="text-red-500">*</span>
+=======
+              Số lượng người thi đấu
+>>>>>>> 06cfe66d3fba75ac6e8e9e756217b2615281ff37
             </InputLabel>
             <Select
               // variant="standard"
@@ -478,7 +822,7 @@ const CreateTeamFormation = () => {
             </button>
           </div>
         </div>
-        <div className="w-2/6">
+        <div className="w-2/5">
           <p>Nhấn liên tiếp hai lần vào vận động viên để tạo chiến thuật</p>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Tactique_WM-fr.svg/250px-Tactique_WM-fr.svg.png"

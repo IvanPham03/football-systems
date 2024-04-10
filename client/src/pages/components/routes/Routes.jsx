@@ -1,9 +1,10 @@
-
-import Login from "../../auth/Login";
-import Main from "../layouts/main";
+import Main from "../layouts/Main";
 import Null from "../layouts/Null";
+import Admin from '../../admin'
 import { Routes, Route } from "react-router-dom";
-import { Home, Team, Tournament, SignUp, TeamDetail,  } from "../../../pages";
+
+import { Home, Team, Tournament, Login, SignUp,TeamDetail, } from "../../../pages";
+
 const routes = [
   {
     path: "/login",
@@ -37,6 +38,8 @@ const routes = [
     layout: Main,
   },
   {},
+
+  { path: "/admin", layout: undefined, component: Admin },
 ];
 
 const Index = () => {
