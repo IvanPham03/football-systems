@@ -42,6 +42,9 @@ const FindTournament = () => {
 
     fetchData();
   }, []);
+  useEffect(() => {
+  window.scrollTo(0, 0)
+}, [])
   return (
     <div className="min-h-[1000px] my-10">
       <div className="flex justify-between h-10 gap-3">

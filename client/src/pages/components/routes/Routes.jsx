@@ -3,7 +3,9 @@ import Null from "../layouts/Null";
 import Admin from '../../admin'
 import { Routes, Route } from "react-router-dom";
 import { Home, Team, Tournament, Login, SignUp } from "../../../pages";
-
+import ManageTournament from '../../tournament/manage/Manage.jsx'
+import ManageDetail from '../../tournament/manage/index'
+import Macth from '../../match/index'
 const routes = [
   {
     path: "/login",
@@ -29,6 +31,21 @@ const routes = [
     path: "/tournament",
     component: Tournament,
     layout: Main,
+  },
+  {
+    path: "/manage",
+    component: ManageTournament,
+    layout: Main,
+  },
+  {
+    path: "/manage/detail/:id",
+    component: ManageDetail,
+    layout: Main,
+  },
+  {
+    path:'/match/detail/:id',
+    component: Macth,
+    layout:Main
   },
   { path: "/admin", layout: undefined, component: Admin },
 ];

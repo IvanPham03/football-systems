@@ -22,6 +22,9 @@ export default class tournamentControllers {
   async getAlls(req, res) {
     return await tournamentService.getAlls(req, res);
   }
+  async getAll(req, res) {
+    return await tournamentService.getAll(req, res);
+  }
   //
   async createTournament(req, res) {
    
@@ -58,7 +61,17 @@ export default class tournamentControllers {
   }
 
   //
-  async findTournament() {}
+  async findTournament(req, res) {
+    try {
+      if(req.params.id){
+        tournamentService.findById(req, res)
+      }
+    } catch (error) {
+      return res.send("not found").status(404)
+    }
+  }
   //
   async updateTournament() {}
+
+  // truy vấn thông tin chi t
 }

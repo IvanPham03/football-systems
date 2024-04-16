@@ -21,7 +21,7 @@ import {
   removeSpinner,
 } from "../../redux-toolkit/slices/uiSlice.js";
 import { setUpdate } from "../../redux-toolkit/slices/modalEditTeamSlice.js";
-import logo from '../../assets/logo/logo.png'
+import logo from "../../assets/logo/logo.png";
 export default function CreateTournament() {
   const updateTeam = useSelector((state) => state.modalEditTeam.updateClick);
   const nameRedux = useSelector((state) => state.modalEditTeam.name);
@@ -43,11 +43,11 @@ export default function CreateTournament() {
   const [phoneNumber, setphoneNumber] = useState("");
   const [venue, setvenue] = useState("");
   const [formatTour, setformatTour] = useState("Knockout");
-  const [amountTeam, setamountTeam] = useState(5);
+  const [amountTeam, setamountTeam] = useState(5); // số lượng mỗi đội
   const [registrationDeadline, setRegistrationDeadline] = useState(new Date());
   const [dataDetails, setDataDetails] = useState("");
   const [teamPlayers, setTeamPlayers] = useState(); //
-
+  const [fileContent, setFileContent] = useState("");
   // truyền props lấy data từ file
   const handlePropPlayer = (data) => {
     let res = handleFormatData(data);
@@ -77,7 +77,7 @@ export default function CreateTournament() {
           privacy: privacy,
           data: teamPlayers,
           registrationDeadline: registrationDeadline,
-          dataDetails: dataDetails
+          dataDetails: dataDetails,
         });
         console.log(res);
       } catch (error) {
@@ -117,7 +117,8 @@ export default function CreateTournament() {
     return res;
   };
 
-  //  update team click save 
+ 
+  //  update team click save
   if (updateTeam) {
     // handleFormatData
     console.log("change");
@@ -134,15 +135,17 @@ export default function CreateTournament() {
       dispatch(removeSpinner());
       dispatch(addSuccessModal());
     }, 3000);
-    dispatch(setUpdate(false))
+    dispatch(setUpdate(false));
   }
 
   // tryền props lấy format tour
-  const handleFormatTour = (dataDetails) =>{
-    setDataDetails(dataDetails)
+  const handleFormatTour = (dataDetails) => {
+    setDataDetails(dataDetails);
     console.log(dataDetails);
-  }
-
+  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="min-h-[1000px]">
       <div className="flex items-center justify-between">
@@ -270,7 +273,7 @@ export default function CreateTournament() {
             }}
           >
             <img
-               src={logo}
+              src={logo}
               alt="logo tournament"
               className="w-32 h-32 object-cover mt-4"
             />
@@ -300,7 +303,7 @@ export default function CreateTournament() {
             }}
           >
             <img
-                src={logo}
+              src={logo}
               alt="logo tournament"
               className="w-32 h-32 object-cover mt-4"
             />
@@ -309,67 +312,46 @@ export default function CreateTournament() {
         </div>
       </div>
       <Divider />
-      <Format type={formatTour} handleFormatTour={handleFormatTour}/>
-      <div className="my-10 flex gap-4 justify-between">
-        <div className="w-1/2">
-          <p>Số lượng đội:</p>
-          <FormControl
-            sx={{ minWidth: 120, mt: 3 }}
-            size="small"
-            className="w-full"
-          >
-            <InputLabel id="demo-select-small-label">Số lượng</InputLabel>
-            <Select
-              labelId="demo-select-small-label"
-              id="demo-select-small"
-              value={amountPerTeam}
-              label="Chế độ"
-              onChange={(e) => {
-                setamountTeam(e.target.value);
-              }}
-              className="w-full"
-            >
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={6}>6</MenuItem>
-              <MenuItem value={7}>7</MenuItem>
-              <MenuItem value={9}>9</MenuItem>
-              <MenuItem value={11}>11</MenuItem>
-            </Select>
-          </FormControl>
+      <Format type={formatTour} handleFormatTour={handleFormatTour} />
+      <div className="my-10 flex gap-4 justify-between items-end">
+        <div className=" grow">
+          <TextField
+            label="Số lượng đội"
+            variant="standard"
+            value={amountTeam}
+            className="mt-3 w-full"
+            onChange={(e) => {
+              setamountTeam(e.target.value);
+            }}
+          />
         </div>
-        <div className="w-1/2">
+        <div className="">
           <p>Số lượng người thi đấu trên sân của mỗi đội.</p>
-          <FormControl
-            sx={{ minWidth: 120, mt: 3 }}
-            size="small"
+          <Select
+            labelId="demo-select-small-label"
+            id="demo-select-small"
+            value={amountPerTeam}
+            label="Số lượng người thi đấu trên sân của mỗi đội."
+            variant="standard"
+            onChange={(e) => {
+              setamountPerTeam(e.target.value);
+            }}
             className="w-full"
           >
-            <InputLabel id="demo-select-small-label">Số lượng</InputLabel>
-            <Select
-              labelId="demo-select-small-label"
-              id="demo-select-small"
-              value={amountPerTeam}
-              label="Chế độ"
-              onChange={(e) => {
-                setamountPerTeam(e.target.value);
-              }}
-              className="w-full"
-            >
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={6}>6</MenuItem>
-              <MenuItem value={7}>7</MenuItem>
-              <MenuItem value={9}>9</MenuItem>
-              <MenuItem value={11}>11</MenuItem>
-            </Select>
-          </FormControl>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={6}>6</MenuItem>
+            <MenuItem value={7}>7</MenuItem>
+            <MenuItem value={9}>9</MenuItem>
+            <MenuItem value={11}>11</MenuItem>
+          </Select>
         </div>
+        <p className="bg-red-500 text-white py-1 px-2 rounded-md">
+          Đối với cấu hình này thì số lượng trận đấu của giải là:{" "}
+          <span className="font-bold">100</span>{" "}
+        </p>
       </div>
-      <p className="bg-red-500 text-white my-4 py-1 px-2 rounded-md">
-        Đối với cấu hình này thì số lượng trận đấu của giải là:{" "}
-        <span className="font-bold">100</span>{" "}
-      </p>
+
       <Divider />
       <ListTeam handlePropPlayer={handlePropPlayer} />
       <div className="grid grid-cols-4 gap-4 justify-items-center my-4">

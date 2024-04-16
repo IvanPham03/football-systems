@@ -8,6 +8,7 @@ import {
   addSpinner,
   removeSpinner,
 } from "../../redux-toolkit/slices/uiSlice";
+import AxiosInstance from "../../config/AxiosInstance.js";
 const ListTeam = ({ handlePropPlayer }) => {
   const inputRef = useRef();
   const [file, setFile] = useState("");
@@ -104,6 +105,35 @@ const ListTeam = ({ handlePropPlayer }) => {
     }, 3000);
     // xoá file hiện tại để nếu người dùng click cùng 1 file 2 lần thì nó vẫn đọc
   };
+
+  const handleGetFile = async () => {
+    try {
+      let res = await AxiosInstance.get("/team-player/download-file", {
+        responseType: "arraybuffer", // Specify arraybuffer for binary data
+        headers: {
+          "Content-Type":
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        }, // Set correct Content-Type for XLSX
+      });
+      if (res) {
+        const filename = "sample.xlsx"; // Customize the filename as needed
+        const blob = new Blob([res.data], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        }); // Ensure correct MIME type
+        const fileURL = URL.createObjectURL(blob);
+
+        // Trigger browser download using a link (recommended)
+        const downloadLink = document.createElement("a");
+        downloadLink.href = fileURL;
+        downloadLink.download = filename;
+        downloadLink.click();
+
+        URL.revokeObjectURL(fileURL);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <div className="flex justify-between items-center h-10">
@@ -128,7 +158,7 @@ const ListTeam = ({ handlePropPlayer }) => {
             />
             <span className="ml-2">{file}</span>
           </div>
-          <p>Tải file dữ liệu mẫu</p>
+          <p onClick={() => handleGetFile()}>Tải file dữ liệu mẫu</p>
         </div>
       </div>
     </div>

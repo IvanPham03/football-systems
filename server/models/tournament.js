@@ -13,6 +13,7 @@ const tournament = new Schema(
     numberTeam: Number,
     pathImage: { type: String, default: "" },
     privacy: { type: String, default: "private" },
+    status: { type: String, default: "inactive" },
     formatTour: {
       type: String,
       enum: ["League", "Knockout", "Hybrid"],
@@ -30,6 +31,7 @@ const tournament = new Schema(
       advancingTeam: Number,
     },
     team: [{ type: String }], // lưu danh sách id cầu team thi đấu thay vì ref
+    rounds: [{ type: String }],
   },
   { timestamps: true }
 );

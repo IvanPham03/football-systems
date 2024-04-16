@@ -5,10 +5,12 @@ import helmet from "helmet";
 import userRoute from './routes/user.routes.js'
 import tournamentRoute from './routes/tournament.routes.js'
 import teamPlayerRoute from './routes/teamPlayer.routes.js'
+import scheduleRoute from './routes/schedule.routes.js'
 import authRoute from './routes/auth.routes.js'
+import matchRoute from './routes/match.routes.js'
+import roundRoute from './routes/round.routes.js'
 import initialUser from './seed-data/user.js'
 import initTournament from "./seed-data/tournament.js";
-// import initTeam from './seed-data/team.js'
 import RedisStore from "connect-redis"
 import redisClient from './config/redis.config.js'
 import session from "express-session"
@@ -50,9 +52,12 @@ app.use("/", userRoute);
 app.use('/tournaments', tournamentRoute)
 app.use('/auth', authRoute)
 app.use('/team-player',teamPlayerRoute)
+app.use('/schedule', scheduleRoute)
+app.use('/round', roundRoute)
+app.use('/match', matchRoute)
 // Handle error when not match route
 app.use((req, res, next) => {
-  const error = new Error("Not found!");
+  const error = new Error("Not found route!");
   error.status = 404;
   next(error);
 });

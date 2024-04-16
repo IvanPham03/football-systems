@@ -1,19 +1,13 @@
 import Tournament from "../models/tournament.js";
 import createHttpError from "http-errors";
 export default class tournamentServices {
-  //get all
+  //get alls
+  // không làm admin nên truy vấn tạm load all public và private nếu tồn tại userid
   async getAlls(req, res) {
     try {
-      let role = "user";
-      let userId = "6607c0f995fa0e629690bbda";
-      let temp = null;
-      // chỉ return về tournament public và của chính user đó
-      // role admin thì return hết kể cả public hay private
-      if (role === "admin") {
-        temp = await Tournament.find({});
-      } else {
-        // truy vấn với 2 điều kiện 1 là giải đấu công khai, 2 là giải đấu do người đó tạo kể cả có private
-        temp = await Tournament.find({
+      let userId = req.payload?.userId;
+      if (userId) {
+        let temp = await Tournament.find({
           $or: [
             {
               privacy: "public",
@@ -23,8 +17,33 @@ export default class tournamentServices {
             },
           ],
         });
+        return res.json(temp).status(200);
+      } else {
+        let temp = await Tournament.find({
+          privacy: "public",
+        });
+        return res.json(temp).status(200);
       }
-      return await res.json(temp).status(200);
+    } catch (error) {
+      console.warn("Error find all tournament::: " + error);
+      await res.send("Error find all tournament").status(500);
+    }
+  }
+
+  async getAll(req, res) {
+    try {
+      // return all tournament of user
+      let userId = req.payload?.userId;
+      if (userId) {
+        let temp = await Tournament.find({ ownerId: userId });
+        console.log(temp);
+        if (temp) {
+          return res.json(temp).status(200);
+        }
+        return res.send("not found").status(404);
+      } else {
+        return res.send("not found").status(404);
+      }
     } catch (error) {
       console.warn("Error find all tournament::: " + error);
       await res.send("Error find all tournament").status(500);
@@ -46,14 +65,15 @@ export default class tournamentServices {
   // truy vấn bằng id
   async findById(req, res) {
     try {
-      if (req.id) {
-        return await Tournament.findById(req.id);
+      if (req.params.id) {
+        let rs = await Tournament.findById(req.params.id);
+        if (rs) {
+          return res.json(rs).status(200);
+        }
       }
       return res.json(createHttpError.NotFound());
     } catch (error) {
-      console.log("====================================");
       console.error("truy vấn bằng id tournament:::" + error);
-      console.log("====================================");
       return res.json(createHttpError.InternalServerError());
     }
   }
@@ -104,9 +124,6 @@ export default class tournamentServices {
       });
       let rs = await newModel.save();
       if (rs) {
-        console.log("====================================");
-        console.log(rs);
-        console.log("====================================");
         return res.status(201).send("Tournament saved successfully!");
       } else return res.status(400).send("Tournament could not be saved.");
     } catch (error) {

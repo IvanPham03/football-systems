@@ -7,7 +7,6 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json(createHttpError.Unauthorized)
   }
   const token = req.cookies['access-token']
-  console.log(token);
   jwt.verify(
     token, process.env.keyAccess, (err, payload) =>{
       if(err){

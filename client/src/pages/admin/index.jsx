@@ -5,7 +5,8 @@ import Sidebar from "./components/Sidebar";
 import Dashboard from './layouts/dashboard'
 const Index = () => {
   const view = useSelector(state => state.uiAdmin.view)
-  console.log(view);
+  const login = useSelector(state => state.session.isAuthenticated)
+  console.log(login);
   return (
     <div>
       <Navbar />

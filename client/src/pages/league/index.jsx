@@ -1,11 +1,11 @@
 import React from 'react'
 
-const index = () => {
+const LeaderBoard = () => {
   return (
     <div>
-      league
+      LeaderBoard
     </div>
   )
 }
 
-export default index
+export default LeaderBoard

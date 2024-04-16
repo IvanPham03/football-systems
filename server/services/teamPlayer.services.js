@@ -1,6 +1,5 @@
 import TeamPlayer from "../models/teamPlayer.js";
 import createError from "http-errors";
-import moment from "moment";
 import Tournament from "../models/tournament.js";
 export default class TeamPlayerServices {
   async createTeam(req, res) {
@@ -68,8 +67,8 @@ export default class TeamPlayerServices {
       const create = await new Tournament({
         name: name,
         ownerId: user.userId,
-        timeStart:  new Date(timeStart),
-        timeEnd:  new Date(timeEnd),
+        timeStart: new Date(timeStart),
+        timeEnd: new Date(timeEnd),
         venue: venue,
         phoneNumber: phoneNumber,
         numberPerTeam: numberPerTeam,
@@ -96,7 +95,25 @@ export default class TeamPlayerServices {
 
   async updateTeam() {}
 
-  async getTeamById() {}
+  async getTeamById(req, res) {
+    try {
+      let item = await TeamPlayer.findById(req.params.id);
+      if (item) {
+        return res.json(item).status(200);
+      }
+      return res.send("not found ").status(400);
+    } catch (error) {
+      console.log(error);
+      return res.json(createError(500));
+    }
+  }
 
+  async getName(id) {
+    try {
+      return await TeamPlayer.find({ _id: id }, { name: 1 , _id:0});
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async getAll() {}
 }

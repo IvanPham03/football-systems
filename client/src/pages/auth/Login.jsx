@@ -21,9 +21,6 @@ const Login = () => {
         email: email,
         password: password,
       });
-      console.log('====================================');
-      console.log(res.data);
-      console.log('====================================');
       if (res.status) {
         dispatch(login({token: res.data[0]?.accesstoken, name: res.data[0]?.name, role: res.data[0]?.role}))
         if (res.data[0]?.role === 'admin') {
